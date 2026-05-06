@@ -1,0 +1,46 @@
+[
+  {
+    "id": "slh-lowestoft",
+    "programme": "lung-health",
+    "location": "Lowestoft",
+    "address": "The Seagull Theatre, Morton Road, Lowestoft, NR32 2HY",
+    "day": "Tuesday",
+    "time": "2:00pm – 3:30pm",
+    "lat": 52.4750,
+    "lng": 1.7550,
+    "notes": "Free, drop-in. No booking needed."
+  },
+  {
+    "id": "skylarks-halesworth",
+    "programme": "parkinsons",
+    "location": "Halesworth",
+    "address": "Halesworth Community Centre, Quay Street, Halesworth, IP19 8ET",
+    "day": "Wednesday",
+    "time": "11:00am – 12:30pm",
+    "lat": 52.3490,
+    "lng": 1.5030,
+    "notes": "Carers and partners welcome."
+  },
+  {
+    "id": "skylarks-lowestoft",
+    "programme": "parkinsons",
+    "location": "Lowestoft",
+    "address": "The Seagull Theatre, Morton Road, Lowestoft, NR32 2HY",
+    "day": "Friday",
+    "time": "2:00pm – 3:30pm",
+    "lat": 52.4750,
+    "lng": 1.7550,
+    "notes": "Carers and partners welcome."
+  },
+  {
+    "id": "dementia-lowestoft",
+    "programme": "dementia",
+    "location": "Lowestoft",
+    "address": "The Seagull Theatre, Morton Road, Lowestoft, NR32 2HY",
+    "day": "Thursday",
+    "time": "10:30am – 12:00pm",
+    "lat": 52.4750,
+    "lng": 1.7550,
+    "notes": "People with dementia and their carers."
+  }
+]
