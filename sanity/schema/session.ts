@@ -1,9 +1,11 @@
-const session = {
+import { defineField, defineType } from "sanity";
+
+export default defineType({
   name: "session",
   title: "Session",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "programme",
       title: "Programme",
       type: "string",
@@ -15,45 +17,18 @@ const session = {
           { title: "Wired Sounds", value: "wired-sounds" },
         ],
       },
-      validation: (R: { required: () => unknown }) => R.required(),
-    },
-    {
-      name: "location",
-      title: "Location name",
-      type: "string",
-      validation: (R: { required: () => unknown }) => R.required(),
-    },
-    {
-      name: "address",
-      title: "Full address",
-      type: "string",
-    },
-    {
-      name: "day",
-      title: "Day of week",
-      type: "string",
-    },
-    {
-      name: "time",
-      title: "Time",
-      type: "string",
-    },
-    {
-      name: "lat",
-      title: "Latitude",
-      type: "number",
-    },
-    {
-      name: "lng",
-      title: "Longitude",
-      type: "number",
-    },
-    {
-      name: "notes",
-      title: "Notes",
-      type: "text",
-    },
+      validation: (R) => R.required(),
+    }),
+    defineField({ name: "location", title: "Venue name",    type: "string", validation: (R) => R.required() }),
+    defineField({ name: "address",  title: "Full address",  type: "string" }),
+    defineField({ name: "day",      title: "Day of week",   type: "string" }),
+    defineField({ name: "time",     title: "Time",          type: "string" }),
+    defineField({ name: "lat",      title: "Latitude",      type: "number" }),
+    defineField({ name: "lng",      title: "Longitude",     type: "number" }),
+    defineField({ name: "notes",    title: "Notes",         type: "text", rows: 2 }),
+    defineField({ name: "active",   title: "Currently running", type: "boolean", initialValue: true }),
   ],
-};
-
-export default session;
+  preview: {
+    select: { title: "location", subtitle: "programme" },
+  },
+});
