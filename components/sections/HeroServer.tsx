@@ -11,7 +11,23 @@ interface HeroData {
   heroPrimaryURL?: string;
   heroSecondaryCTA?: string;
   heroSecondaryURL?: string;
+  heroVideoUrl?: string;
   heroVideoCaption?: string;
+}
+
+function getYouTubeEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    let id: string | null = null;
+    if (u.hostname === "youtu.be") {
+      id = u.pathname.slice(1);
+    } else if (u.hostname.includes("youtube.com")) {
+      id = u.searchParams.get("v");
+    }
+    return id ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1` : null;
+  } catch {
+    return null;
+  }
 }
 
 const DEFAULTS: HeroData = {
@@ -50,18 +66,36 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
           </div>
         </div>
 
-        {/* Right — video placeholder */}
-        <div
-          className="relative flex items-center justify-center rounded-lg overflow-hidden"
-          style={{ aspectRatio: "16/9", border: "2px dashed #F5A623", backgroundColor: "#2a2a2a" }}
-        >
-          <div className="flex flex-col items-center gap-3 text-center px-8">
-            <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "#F5A623" }}>
-              <IconPlayerPlay size={24} style={{ color: "#412402" }} />
+        {/* Right — video */}
+        {(() => {
+          const embedUrl = d.heroVideoUrl ? getYouTubeEmbedUrl(d.heroVideoUrl) : null;
+          if (embedUrl) {
+            return (
+              <div className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <iframe
+                  src={embedUrl}
+                  title={d.heroVideoCaption ?? "Swell Music session video"}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            );
+          }
+          return (
+            <div
+              className="relative flex items-center justify-center rounded-lg overflow-hidden"
+              style={{ aspectRatio: "16/9", border: "2px dashed #F5A623", backgroundColor: "#2a2a2a" }}
+            >
+              <div className="flex flex-col items-center gap-3 text-center px-8">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "#F5A623" }}>
+                  <IconPlayerPlay size={24} style={{ color: "#412402" }} />
+                </div>
+                <p className="text-sm font-medium" style={{ color: "#888888" }}>{d.heroVideoCaption}</p>
+              </div>
             </div>
-            <p className="text-sm font-medium" style={{ color: "#888888" }}>{d.heroVideoCaption}</p>
-          </div>
-        </div>
+          );
+        })()}
       </div>
 
       {/* Stat bar */}

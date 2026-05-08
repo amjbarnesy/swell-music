@@ -11,7 +11,7 @@ export const HERO_QUERY = `
     heroHeading, heroHighlightWord, heroSubheading,
     heroPrimaryCTA, heroPrimaryURL,
     heroSecondaryCTA, heroSecondaryURL,
-    heroVideoCaption
+    heroVideoUrl, heroVideoCaption
   }
 `;
 
