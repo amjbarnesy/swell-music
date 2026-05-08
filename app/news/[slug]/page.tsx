@@ -59,8 +59,68 @@ export default async function NewsArticlePage({ params }: Params) {
       )}
 
       <section className="py-12 px-6">
-        <div className="max-w-2xl mx-auto prose prose-sm" style={{ color: "#1a1a1a" }}>
-          {post.body && <PortableText value={post.body as Parameters<typeof PortableText>[0]["value"]} />}
+        <div className="max-w-2xl mx-auto">
+          {post.body && (
+            <PortableText
+              value={post.body as Parameters<typeof PortableText>[0]["value"]}
+              components={{
+                block: {
+                  normal: ({ children }) => (
+                    <p className="mb-5 text-base leading-relaxed" style={{ color: "#444444" }}>{children}</p>
+                  ),
+                  h2: ({ children }) => (
+                    <h2 className="mt-10 mb-4 text-2xl font-black" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h2>
+                  ),
+                  h3: ({ children }) => (
+                    <h3 className="mt-8 mb-3 text-xl font-black" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h3>
+                  ),
+                  h4: ({ children }) => (
+                    <h4 className="mt-6 mb-2 text-lg font-black" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h4>
+                  ),
+                  blockquote: ({ children }) => (
+                    <blockquote className="pl-5 py-1 my-6" style={{ borderLeft: "3px solid #F5A623" }}>
+                      <p className="text-lg leading-relaxed italic" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</p>
+                    </blockquote>
+                  ),
+                },
+                list: {
+                  bullet: ({ children }) => (
+                    <ul className="mb-5 flex flex-col gap-2 pl-5">{children}</ul>
+                  ),
+                  number: ({ children }) => (
+                    <ol className="mb-5 flex flex-col gap-2 pl-5 list-decimal">{children}</ol>
+                  ),
+                },
+                listItem: {
+                  bullet: ({ children }) => (
+                    <li className="text-base leading-relaxed flex gap-2" style={{ color: "#444444" }}>
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#F5A623" }} />
+                      <span>{children}</span>
+                    </li>
+                  ),
+                  number: ({ children }) => (
+                    <li className="text-base leading-relaxed" style={{ color: "#444444" }}>{children}</li>
+                  ),
+                },
+                marks: {
+                  strong: ({ children }) => <strong className="font-medium" style={{ color: "#1a1a1a" }}>{children}</strong>,
+                  em: ({ children }) => <em className="italic">{children}</em>,
+                  link: ({ value, children }) => (
+                    <a href={value?.href} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2" style={{ color: "#F5A623" }}>
+                      {children}
+                    </a>
+                  ),
+                },
+                types: {
+                  image: ({ value }) => value?.asset?.url ? (
+                    <div className="relative my-8 rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                      <Image src={value.asset.url} alt={value.alt ?? ""} fill className="object-cover" />
+                    </div>
+                  ) : null,
+                },
+              }}
+            />
+          )}
         </div>
       </section>
     </>
