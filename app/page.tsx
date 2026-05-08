@@ -23,7 +23,7 @@ export default async function HomePage() {
       <ImpactDashboard testimonials={testimonials as Array<{ _id: string; quote: string; attribution: string }> | null} />
       <ReferralStrip />
       <GetInvolvedGrid />
-      <FunderBarServer funders={funders as Array<{ _id: string; name: string; url?: string }> | null} />
+      <FunderBarServer funders={funders as Array<{ _id: string; name: string; url?: string; logoUrl?: string; logoAlt?: string }> | null} />
     </>
   );
 }

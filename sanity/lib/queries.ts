@@ -18,7 +18,9 @@ export const HERO_QUERY = `
 // ─── Funders ──────────────────────────────────────────────────────────────────
 export const FUNDERS_QUERY = `
   *[_type == "funder" && active == true] | order(order asc){
-    _id, name, url
+    _id, name, url,
+    "logoUrl": logo.asset->url,
+    "logoAlt": logo.alt
   }
 `;
 
