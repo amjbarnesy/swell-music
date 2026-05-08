@@ -32,6 +32,26 @@ export const PROGRAMMES_QUERY = `
   }
 `;
 
+export const PROGRAMME_SLUGS_QUERY = `
+  *[_type == "programme"]{ "slug": slug.current }
+`;
+
+export const PROGRAMME_PAGE_QUERY = `
+  *[_type == "programme" && slug.current == $slug][0]{
+    _id, title, "slug": slug.current,
+    shortDescription, badgeLabel, theme, iconName, accreditation,
+    pageTitle, pageDescription,
+    features[]{ title, description },
+    whoFor,
+    evidenceHeading, evidenceBody,
+    body,
+    "gallery": gallery[]{
+      "url": asset->url,
+      alt
+    }
+  }
+`;
+
 // ─── Sessions ─────────────────────────────────────────────────────────────────
 export const ALL_SESSIONS_QUERY = `
   *[_type == "session" && active == true] | order(programme asc, day asc){
