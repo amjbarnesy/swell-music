@@ -26,7 +26,7 @@ export const FUNDERS_QUERY = `
 
 // ─── Programmes ───────────────────────────────────────────────────────────────
 export const PROGRAMMES_QUERY = `
-  *[_type == "programme" && active == true] | order(order asc){
+  *[_type == "programme" && active != false] | order(order asc){
     _id, title, "slug": slug.current,
     shortDescription, badgeLabel, theme, iconName
   }
