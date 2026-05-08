@@ -24,7 +24,9 @@ function getYouTubeEmbedUrl(url: string): string | null {
     } else if (u.hostname.includes("youtube.com")) {
       id = u.searchParams.get("v");
     }
-    return id ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1` : null;
+    return id
+      ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&color=white`
+      : null;
   } catch {
     return null;
   }
