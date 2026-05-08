@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 
 const navLinks = [
@@ -9,6 +10,7 @@ const navLinks = [
   { label: "Our impact", href: "/our-impact" },
   { label: "About us",   href: "/about" },
   { label: "News",       href: "/news" },
+  { label: "Contact",    href: "/contact" },
 ];
 
 export default function Nav() {
@@ -19,24 +21,14 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" aria-label="Swell Music — home">
-          <div
-            className="flex flex-col items-center justify-center w-14 h-12 leading-none select-none"
-            style={{ backgroundColor: "#F5A623" }}
-          >
-            <span
-              className="text-[11px] font-black tracking-widest uppercase"
-              style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
-            >
-              SWELL
-            </span>
-            <div className="w-full h-px" style={{ backgroundColor: "#1a1a1a", opacity: 0.35 }} />
-            <span
-              className="text-[11px] font-black tracking-widest uppercase"
-              style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
-            >
-              MUSIC
-            </span>
-          </div>
+          <Image
+            src="/logo/SWELL-MUSIC-logo.svg"
+            alt="Swell Music CIC"
+            width={120}
+            height={48}
+            priority
+            className="h-12 w-auto"
+          />
         </Link>
 
         {/* Desktop nav */}

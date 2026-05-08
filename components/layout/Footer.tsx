@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { IconBrandFacebook, IconMail, IconPhone } from "@tabler/icons-react";
 
 const navigate = [
@@ -23,24 +24,13 @@ export default function Footer() {
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <Link href="/" aria-label="Swell Music — home">
-            <div
-              className="flex flex-col items-center justify-center w-14 h-12 leading-none select-none"
-              style={{ backgroundColor: "#F5A623" }}
-            >
-              <span
-                className="text-[11px] font-black tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
-              >
-                SWELL
-              </span>
-              <div className="w-full h-px" style={{ backgroundColor: "#1a1a1a", opacity: 0.35 }} />
-              <span
-                className="text-[11px] font-black tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
-              >
-                MUSIC
-              </span>
-            </div>
+            <Image
+              src="/logo/SWELL-MUSIC-logo.svg"
+              alt="Swell Music CIC"
+              width={120}
+              height={48}
+              className="h-12 w-auto"
+            />
           </Link>
           <p className="text-sm leading-relaxed" style={{ color: "#888888", maxWidth: "22ch" }}>
             Free weekly music sessions for people living with lung conditions, Parkinson&rsquo;s,
