@@ -23,7 +23,7 @@ function FunderItem({ funder }: { funder: Funder }) {
         alt={funder.logoAlt ?? `${funder.name} logo`}
         fill
         className="object-contain"
-        sizes="200px"
+        sizes="(max-width: 640px) 50vw, 200px"
       />
     </div>
   ) : (
@@ -37,12 +37,10 @@ function FunderItem({ funder }: { funder: Funder }) {
 
   const box = (
     <div
-      className="flex items-center justify-center rounded-lg bg-white"
+      className="flex items-center justify-center rounded-lg bg-white w-full aspect-square sm:w-[200px] sm:h-[200px]"
       style={{
-        width: 200,
-        height: 200,
         border: "1px solid rgba(0,0,0,0.08)",
-        padding: funder.logoUrl ? 24 : 16,
+        padding: funder.logoUrl ? 16 : 12,
       }}
     >
       {inner}
@@ -95,13 +93,7 @@ export default function FunderBarServer({ funders }: { funders: Funder[] | null 
     <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
         <SectionLabel>Supported by</SectionLabel>
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-            gap: 20,
-          }}
-        >
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
           {funders.map((f) => (
             <FunderItem key={f._id} funder={f} />
           ))}
