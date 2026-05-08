@@ -14,7 +14,7 @@ export const client: SanityClient | null = projectId
 export async function sanityFetch<T>({
   query,
   params = {},
-  revalidate = 3600,
+  revalidate = 60,
 }: {
   query: string;
   params?: Record<string, string | number | boolean>;
