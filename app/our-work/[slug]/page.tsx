@@ -53,6 +53,7 @@ interface ProgrammeDoc {
   whoFor?: string[];
   evidenceHeading?: string;
   evidenceBody?: unknown[];
+  bodyHeading?: string;
   body?: unknown[];
   gallery?: Array<{ url: string; alt?: string }>;
 }
@@ -132,7 +133,7 @@ export default async function ProgrammePage({ params }: Params) {
   const hasWhoFor      = prog.whoFor && prog.whoFor.length > 0;
   const hasEvidence    = prog.evidenceHeading || (prog.evidenceBody && prog.evidenceBody.length > 0);
   const hasGallery     = prog.gallery && prog.gallery.length > 0;
-  const hasBody        = prog.body && prog.body.length > 0;
+  const hasBody        = prog.bodyHeading || (prog.body && prog.body.length > 0);
   const hasSessions    = sessions && sessions.length > 0;
   const hasTestimonials = testimonials && testimonials.length > 0;
 
@@ -243,13 +244,23 @@ export default async function ProgrammePage({ params }: Params) {
         </section>
       )}
 
-      {/* Additional body content — two columns on sm+ */}
+      {/* Additional body content — full-width heading, then two columns */}
       {hasBody && (
         <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
-          <div className="max-w-7xl mx-auto">
-            <div className="sm:columns-2 gap-12 [&>*]:break-inside-avoid">
-              <PortableText value={prog.body as any} components={ptComponents} />
-            </div>
+          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+            {prog.bodyHeading && (
+              <h2
+                className="text-3xl font-black"
+                style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
+              >
+                {prog.bodyHeading}
+              </h2>
+            )}
+            {prog.body && prog.body.length > 0 && (
+              <div className="sm:columns-2 gap-12 [&>*]:break-inside-avoid">
+                <PortableText value={prog.body as any} components={ptComponents} />
+              </div>
+            )}
           </div>
         </section>
       )}

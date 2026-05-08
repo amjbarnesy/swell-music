@@ -152,12 +152,19 @@ export default defineType({
     }),
 
     defineField({
+      name: "bodyHeading",
+      title: "Additional content — section heading",
+      type: "string",
+      group: "page",
+      description: "Full-width heading above the two-column text. e.g. 'What is Singing for Lung Health?'",
+    }),
+    defineField({
       name: "body",
-      title: "Additional content (optional)",
+      title: "Additional content — body text",
       type: "array",
       group: "page",
       of: [{ type: "block" }],
-      description: "Optional formatted text section. Leave empty and it won't appear on the page.",
+      description: "Flows into two columns below the heading. Leave both empty and this section won't appear.",
     }),
 
     // ── Gallery ────────────────────────────────────────────────────────────────

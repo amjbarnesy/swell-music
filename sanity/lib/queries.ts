@@ -44,7 +44,7 @@ export const PROGRAMME_PAGE_QUERY = `
     features[]{ title, description },
     whoFor,
     evidenceHeading, evidenceBody,
-    body,
+    bodyHeading, body,
     "gallery": gallery[]{
       "url": asset->url,
       alt
