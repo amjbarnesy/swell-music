@@ -60,7 +60,7 @@ export default function Footer() {
           >
             Navigate
           </h3>
-          <ul className="flex flex-col gap-3">
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
             {navigate.map((link) => (
               <li key={link.href}>
                 <Link
