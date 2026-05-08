@@ -1,14 +1,22 @@
+import { sanityFetch } from "@/sanity/lib/client";
+import { FUNDERS_QUERY } from "@/sanity/lib/queries";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Button from "@/components/ui/Button";
-import FunderBar from "@/components/sections/FunderBar";
+import FunderBarServer from "@/components/sections/FunderBarServer";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Support Us — Swell Music CIC",
   description: "Help Swell Music CIC keep sessions free for everyone who needs them.",
 };
 
-export default function SupportUsPage() {
+export default async function SupportUsPage() {
+  const funders = await sanityFetch<Array<{
+    _id: string; name: string; url?: string; logoUrl?: string; logoAlt?: string;
+  }>>({ query: FUNDERS_QUERY });
+
   return (
     <>
       <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
@@ -27,7 +35,7 @@ export default function SupportUsPage() {
           </div>
         </div>
       </section>
-      <FunderBar />
+      <FunderBarServer funders={funders} />
     </>
   );
 }
