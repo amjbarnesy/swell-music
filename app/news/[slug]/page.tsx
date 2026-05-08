@@ -53,7 +53,7 @@ export default async function NewsArticlePage({ params }: Params) {
       </section>
 
       {post.coverImage && (
-        <div className="relative w-full max-w-2xl mx-auto px-6" style={{ aspectRatio: "16/9" }}>
+        <div className="relative w-full max-w-2xl mx-auto px-6 mt-10 mb-2" style={{ aspectRatio: "16/9" }}>
           <Image src={post.coverImage} alt={post.coverImageAlt ?? post.title} fill className="object-cover rounded-lg" />
         </div>
       )}
