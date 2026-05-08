@@ -75,8 +75,8 @@ interface TestimonialDoc {
 const ptComponents = {
   block: {
     normal:      ({ children }: any) => <p className="text-sm leading-relaxed mb-3" style={{ color: "#444444" }}>{children}</p>,
-    h2:          ({ children }: any) => <h2 className="text-xl font-black mt-6 mb-2" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h2>,
-    h3:          ({ children }: any) => <h3 className="text-base font-bold mt-4 mb-1" style={{ color: "#1a1a1a" }}>{children}</h3>,
+    h2:          ({ children }: any) => <h2 className="text-3xl font-black mt-8 mb-3" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h2>,
+    h3:          ({ children }: any) => <h3 className="text-lg font-bold mt-5 mb-2" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h3>,
     blockquote:  ({ children }: any) => <blockquote className="border-l-4 pl-4 italic my-4 text-sm" style={{ borderColor: "#F5A623", color: "#444444" }}>{children}</blockquote>,
   },
   list: {
