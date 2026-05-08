@@ -1,25 +1,29 @@
 import { sanityFetch } from "@/sanity/lib/client";
-import { HERO_QUERY, FUNDERS_QUERY, FEATURED_TESTIMONIALS_QUERY } from "@/sanity/lib/queries";
+import { HERO_QUERY, FUNDERS_QUERY, FEATURED_TESTIMONIALS_QUERY, PROGRAMMES_QUERY } from "@/sanity/lib/queries";
 import HeroServer from "@/components/sections/HeroServer";
-import ProgrammeGrid from "@/components/sections/ProgrammeGrid";
+import ProgrammeGridServer from "@/components/sections/ProgrammeGridServer";
+import type { ProgrammeData } from "@/components/sections/ProgrammeGridServer";
+import WiredSoundsStrip from "@/components/sections/WiredSoundsStrip";
 import ImpactDashboard from "@/components/sections/ImpactDashboard";
 import ReferralStrip from "@/components/sections/ReferralStrip";
 import GetInvolvedGrid from "@/components/sections/GetInvolvedGrid";
 import FunderBarServer from "@/components/sections/FunderBarServer";
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export default async function HomePage() {
-  const [hero, funders, testimonials] = await Promise.all([
+  const [hero, funders, testimonials, programmes] = await Promise.all([
     sanityFetch({ query: HERO_QUERY }),
     sanityFetch({ query: FUNDERS_QUERY }),
     sanityFetch({ query: FEATURED_TESTIMONIALS_QUERY }),
+    sanityFetch({ query: PROGRAMMES_QUERY }),
   ]);
 
   return (
     <>
       <HeroServer hero={hero as Record<string, string> | null} />
-      <ProgrammeGrid />
+      <ProgrammeGridServer programmes={programmes as ProgrammeData[] | null} />
+      <WiredSoundsStrip />
       <ImpactDashboard testimonials={testimonials as Array<{ _id: string; quote: string; attribution: string }> | null} />
       <ReferralStrip />
       <GetInvolvedGrid />

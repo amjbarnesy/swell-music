@@ -24,6 +24,14 @@ export const FUNDERS_QUERY = `
   }
 `;
 
+// ─── Programmes ───────────────────────────────────────────────────────────────
+export const PROGRAMMES_QUERY = `
+  *[_type == "programme" && active == true] | order(order asc){
+    _id, title, "slug": slug.current,
+    shortDescription, badgeLabel, theme, iconName
+  }
+`;
+
 // ─── Sessions ─────────────────────────────────────────────────────────────────
 export const ALL_SESSIONS_QUERY = `
   *[_type == "session" && active == true] | order(programme asc, day asc){
