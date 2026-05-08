@@ -243,11 +243,13 @@ export default async function ProgrammePage({ params }: Params) {
         </section>
       )}
 
-      {/* Additional body content */}
+      {/* Additional body content — two columns on sm+ */}
       {hasBody && (
         <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
-          <div className="max-w-2xl mx-auto">
-            <PortableText value={prog.body as any} components={ptComponents} />
+          <div className="max-w-7xl mx-auto">
+            <div className="sm:columns-2 gap-12 [&>*]:break-inside-avoid">
+              <PortableText value={prog.body as any} components={ptComponents} />
+            </div>
           </div>
         </section>
       )}
