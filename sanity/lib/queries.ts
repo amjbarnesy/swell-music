@@ -113,7 +113,7 @@ export const REACH_CARDS_QUERY = `
 // ─── News ─────────────────────────────────────────────────────────────────────
 export const NEWS_INDEX_QUERY = `
   *[_type == "newsPost"] | order(publishedAt desc){
-    _id, title, "slug": slug.current, publishedAt, excerpt, author,
+    _id, title, "slug": slug.current, publishedAt, excerpt, author, categories,
     "coverImage": coverImage.asset->url,
     "coverImageAlt": coverImage.alt
   }
@@ -121,9 +121,13 @@ export const NEWS_INDEX_QUERY = `
 
 export const NEWS_ARTICLE_QUERY = `
   *[_type == "newsPost" && slug.current == $slug][0]{
-    title, "slug": slug.current, publishedAt, excerpt, author, body,
+    title, "slug": slug.current, publishedAt, excerpt, author, body, categories,
     "coverImage": coverImage.asset->url,
-    "coverImageAlt": coverImage.alt
+    "coverImageAlt": coverImage.alt,
+    "gallery": gallery[]{
+      "url": asset->url,
+      alt
+    }
   }
 `;
 

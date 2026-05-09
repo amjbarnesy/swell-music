@@ -9,13 +9,47 @@ export default defineType({
     defineField({ name: "slug",        title: "Slug",        type: "slug", options: { source: "title" }, validation: (R) => R.required() }),
     defineField({ name: "publishedAt", title: "Published at",type: "datetime" }),
     defineField({ name: "author",      title: "Author",      type: "string", initialValue: "Swell Music CIC" }),
-    defineField({ name: "excerpt",     title: "Excerpt",     type: "text", rows: 3, description: "Short summary for the news index" }),
+    defineField({ name: "excerpt",     title: "Excerpt",     type: "text", rows: 3, description: "Short summary shown on the news index" }),
+    defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          { title: "Singing for Lung Health", value: "Singing for Lung Health" },
+          { title: "Music for Wellbeing",     value: "Music for Wellbeing" },
+          { title: "Wired Sounds",            value: "Wired Sounds" },
+          { title: "Parkinson's",             value: "Parkinson's" },
+          { title: "Music & Dementia",        value: "Music & Dementia" },
+          { title: "Community",               value: "Community" },
+          { title: "Fundraising",             value: "Fundraising" },
+          { title: "Partnerships",            value: "Partnerships" },
+          { title: "Our Story",               value: "Our Story" },
+        ],
+      },
+      description: "Used for filtering and search — select all that apply.",
+    }),
     defineField({
       name: "coverImage",
       title: "Cover image",
       type: "image",
       options: { hotspot: true },
       fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+    }),
+    defineField({
+      name: "gallery",
+      title: "Photo gallery",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+        },
+      ],
+      validation: (R) => R.max(6),
+      description: "Up to 6 photos in a 3-column grid. Leave empty and the gallery won't appear.",
     }),
     defineField({
       name: "body",

@@ -33,8 +33,10 @@ export default async function NewsArticlePage({ params }: Params) {
     excerpt: string;
     author: string;
     body: unknown[];
+    categories: string[] | null;
     coverImage: string | null;
     coverImageAlt: string | null;
+    gallery: Array<{ url: string; alt?: string }> | null;
   }>({ query: NEWS_ARTICLE_QUERY, params: { slug } });
 
   if (!post) notFound();
@@ -49,6 +51,15 @@ export default async function NewsArticlePage({ params }: Params) {
             {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : ""}
             {post.author ? ` · ${post.author}` : ""}
           </p>
+          {post.categories && post.categories.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-1">
+              {post.categories.map((cat) => (
+                <span key={cat} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: "rgba(245,166,35,0.15)", color: "#F5A623" }}>
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -123,6 +134,28 @@ export default async function NewsArticlePage({ params }: Params) {
           )}
         </div>
       </section>
+
+      {/* Gallery */}
+      {post.gallery && post.gallery.length > 0 && (
+        <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+          <div className="max-w-2xl mx-auto flex flex-col gap-6">
+            <SectionLabel>Photos</SectionLabel>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {post.gallery.map((img, i) => (
+                <div key={i} className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                  <Image
+                    src={img.url}
+                    alt={img.alt ?? `${post.title} photo ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }

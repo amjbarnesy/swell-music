@@ -20,6 +20,7 @@ interface NewsPost {
   publishedAt: string;
   excerpt: string;
   author: string;
+  categories: string[] | null;
   coverImage: string | null;
   coverImageAlt: string | null;
 }
@@ -63,6 +64,15 @@ export default async function NewsPage() {
                     </p>
                     <h2 className="text-base font-black leading-snug" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{post.title}</h2>
                     {post.excerpt && <p className="text-sm leading-relaxed line-clamp-3" style={{ color: "#444444" }}>{post.excerpt}</p>}
+                    {post.categories && post.categories.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {post.categories.slice(0, 2).map((cat) => (
+                          <span key={cat} className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: "#FEF3D7", color: "#854F0B" }}>
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </Link>
               ))}
