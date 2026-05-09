@@ -24,6 +24,7 @@ export default async function HomePage() {
       <HeroServer hero={hero as Record<string, string> | null} />
       <ProgrammeGridServer programmes={programmes as ProgrammeData[] | null} />
       <WiredSoundsStrip />
+      <div style={{ height: "3px", backgroundColor: "#F5A623" }} />
       <ImpactDashboard testimonials={testimonials as Array<{ _id: string; quote: string; attribution: string }> | null} />
       <ReferralStrip />
       <GetInvolvedGrid />
