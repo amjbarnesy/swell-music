@@ -47,8 +47,8 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
   const d = { ...DEFAULTS, ...hero };
 
   return (
-    <section style={{ backgroundColor: "#1a1a1a" }} className="pt-16 pb-0">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section style={{ backgroundColor: "#1a1a1a" }} className="px-6 pt-16 pb-0">
+      <div className="max-w-7xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left */}
         <div className="flex flex-col gap-6">
           <SectionLabel>East Suffolk · Free for all</SectionLabel>
