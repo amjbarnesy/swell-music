@@ -128,7 +128,7 @@ export default function ContactPage() {
           {/* Location chips */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {[
-              { name: "The Seagull Theatre",               area: "Morton Road, Lowestoft" },
+              { name: "The Seagull Theatre",               area: "Morton Road, Lowestoft, NR33 0JH" },
               { name: "Reydon Sports & Community Centre",   area: "Near Southwold" },
               { name: "Pavilion Theatre & Bandstand",       area: "Gorleston" },
               { name: "Shrublands Community Trust",         area: "Gorleston" },

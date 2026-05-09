@@ -17,10 +17,10 @@ const icon = L.divIcon({
 const LOCATIONS = [
   {
     name:    "The Seagull Theatre",
-    address: "Morton Road, Lowestoft, NR32 2HY",
+    address: "Morton Road, Lowestoft, NR33 0JH",
     note:    "Friday Music for Wellbeing · Open Access · Wired Sounds Festival",
-    lat:  52.4757,
-    lng:  1.7503,
+    lat:  52.4548,
+    lng:  1.7352,
   },
   {
     name:    "Reydon Sports & Community Centre",
