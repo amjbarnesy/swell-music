@@ -293,11 +293,43 @@ export default async function ProgrammePage({ params }: Params) {
         </section>
       )}
 
-      {/* CTAs */}
-      <section className="py-10 px-6" style={{ backgroundColor: "#ffffff" }}>
-        <div className="max-w-7xl mx-auto flex flex-wrap gap-4">
-          <Button href="/get-involved/find-a-session" variant="primary">Join this session</Button>
-          <Button href="/get-involved/refer" variant="ghost" className="!text-ink !border-ink/30">Refer someone</Button>
+      {/* ── What next? ────────────────────────────────────────────────── */}
+      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <SectionLabel>Take the next step</SectionLabel>
+            <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>
+              Ready to join us?
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Find a session */}
+            <a
+              href="/get-involved/find-a-session"
+              className="flex flex-col gap-3 rounded-lg p-6 transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#F5A623" }}
+            >
+              <p className="text-lg font-black" style={{ fontFamily: "var(--font-display)", color: "#412402" }}>
+                Find a session near you →
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "#6b3a04" }}>
+                See all our free weekly sessions across Suffolk and Norfolk — find the day and location that works for you. No booking needed, just turn up.
+              </p>
+            </a>
+            {/* Contact */}
+            <a
+              href="/contact"
+              className="flex flex-col gap-3 rounded-lg p-6 transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <p className="text-lg font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>
+                Get in touch with Swell →
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "#888888" }}>
+                Have a question before coming along? Want to refer a friend or family member? Drop us a message and we will get back to you within two working days.
+              </p>
+            </a>
+          </div>
         </div>
       </section>
     </>
