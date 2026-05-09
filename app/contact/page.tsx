@@ -26,6 +26,10 @@ const LOCATIONS_FALLBACK: SessionLocation[] = [
 export default async function ContactPage() {
   const fetched = await sanityFetch<SessionLocation[]>({ query: SESSION_LOCATIONS_QUERY });
   const locations = fetched && fetched.length > 0 ? fetched : LOCATIONS_FALLBACK;
+  // Deduplicate by venue name for the chips (multiple sessions can share a venue)
+  const uniqueVenues = locations.filter(
+    (loc, i, arr) => arr.findIndex((l) => l.name === loc.name) === i,
+  );
 
   return (
     <>
@@ -136,9 +140,9 @@ export default async function ContactPage() {
             <MapWrapper locations={locations} />
           </div>
 
-          {/* Location chips — driven by the same Sanity data */}
+          {/* Unique venue chips */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {locations.map((loc) => (
+            {uniqueVenues.map((loc) => (
               <div key={loc._id} className="flex items-start gap-3 rounded-lg px-4 py-3" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#F5A623" }} />
                 <div className="flex flex-col gap-0.5">

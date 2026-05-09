@@ -67,13 +67,13 @@ export const WIRED_SOUNDS_PAGE_QUERY = `
 
 // ─── Sessions ─────────────────────────────────────────────────────────────────
 export const ALL_SESSIONS_QUERY = `
-  *[_type == "session" && active == true] | order(programme asc, day asc){
+  *[_type == "session" && active != false] | order(order asc, programme asc, day asc){
     _id, programme, location, address, day, time, lat, lng, notes
   }
 `;
 
 export const SESSIONS_BY_PROGRAMME_QUERY = `
-  *[_type == "session" && active == true && programme == $programme] | order(day asc){
+  *[_type == "session" && active != false && programme == $programme] | order(order asc, day asc){
     _id, programme, location, address, day, time, lat, lng, notes
   }
 `;
@@ -110,10 +110,25 @@ export const REACH_CARDS_QUERY = `
   }
 `;
 
-// ─── Session locations (contact map) ──────────────────────────────────────────
+// ─── Session locations — derived from sessions for the map ────────────────────
+// Each session with lat/lng set appears as a map pin.
+// Popup text is derived from programme label + day + time.
 export const SESSION_LOCATIONS_QUERY = `
-  *[_type == "sessionLocation" && active != false] | order(order asc, name asc){
-    _id, name, address, note, lat, lng
+  *[_type == "session" && active != false && defined(lat) && defined(lng)] | order(order asc, location asc){
+    _id,
+    "name": location,
+    address,
+    "note": select(
+      programme == "lung-health"   => "Singing for Lung Health",
+      programme == "parkinsons"    => "Waveney Skylarks (Parkinson's)",
+      programme == "dementia"      => "Music & Dementia",
+      programme == "wellbeing"     => "Music for Wellbeing",
+      programme == "open-access"   => "Open Access",
+      programme == "wired-sounds"  => "Wired Sounds",
+      programme
+    ) + select(defined(day) => " · " + day, "") + select(defined(time) => " · " + time, ""),
+    lat,
+    lng
   }
 `;
 

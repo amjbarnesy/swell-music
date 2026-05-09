@@ -49,6 +49,9 @@ export default async function FindASessionPage() {
   const h         = header ?? HEADER_FALLBACK;
   const sessions  = (sanitySessionsRaw && sanitySessionsRaw.length > 0) ? sanitySessionsRaw : fallbackSessions;
   const locations = (fetchedLocations  && fetchedLocations.length  > 0) ? fetchedLocations  : LOCATIONS_FALLBACK;
+  const uniqueVenues = locations.filter(
+    (loc, i, arr) => arr.findIndex((l) => l.name === loc.name) === i,
+  );
 
   return (
     <>
@@ -113,7 +116,7 @@ export default async function FindASessionPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {locations.map((loc) => (
+            {uniqueVenues.map((loc) => (
               <div key={loc._id} className="flex items-start gap-3 rounded-lg px-4 py-3" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#F5A623" }} />
                 <div className="flex flex-col gap-0.5">
