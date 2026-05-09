@@ -1,6 +1,6 @@
-import dynamic from "next/dynamic";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ContactForm from "@/components/contact/ContactForm";
+import MapWrapper from "@/components/contact/MapWrapper";
 import { IconMail, IconPhone, IconBrandFacebook } from "@tabler/icons-react";
 import type { Metadata } from "next";
 
@@ -8,16 +8,6 @@ export const metadata: Metadata = {
   title: "Contact — Swell Music CIC",
   description: "Get in touch with Swell Music CIC. We'd love to hear from you.",
 };
-
-// Load map client-side only — Leaflet doesn't support SSR
-const SessionsMap = dynamic(() => import("@/components/contact/SessionsMap"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full rounded-lg flex items-center justify-center" style={{ backgroundColor: "#2a2a2a" }}>
-      <p className="text-sm" style={{ color: "#888888" }}>Loading map…</p>
-    </div>
-  ),
-});
 
 export default function ContactPage() {
   return (
@@ -132,7 +122,7 @@ export default function ContactPage() {
 
           {/* Map */}
           <div style={{ height: "480px", borderRadius: "0.5rem", overflow: "hidden" }}>
-            <SessionsMap />
+            <MapWrapper />
           </div>
 
           {/* Location chips */}
