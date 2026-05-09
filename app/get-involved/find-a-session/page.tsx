@@ -165,6 +165,28 @@ export default async function FindASessionPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Contact CTA ──────────────────────────────────────────────────── */}
+      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+          <div className="flex flex-col gap-2">
+            <SectionLabel>Still have questions?</SectionLabel>
+            <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>
+              We&apos;d love to hear from you
+            </h2>
+            <p className="text-sm leading-relaxed max-w-lg" style={{ color: "#888888" }}>
+              Not sure which session is right for you, or would you like to talk to someone before coming along? Get in touch and we will help you find the best place to start.
+            </p>
+          </div>
+          <a
+            href="/contact"
+            className="shrink-0 px-6 py-3 rounded-lg text-sm font-medium transition-opacity hover:opacity-90 whitespace-nowrap"
+            style={{ backgroundColor: "#F5A623", color: "#412402", fontFamily: "var(--font-body)" }}
+          >
+            Contact Swell →
+          </a>
+        </div>
+      </section>
     </>
   );
 }
