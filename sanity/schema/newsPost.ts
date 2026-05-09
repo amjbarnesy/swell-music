@@ -15,20 +15,8 @@ export default defineType({
       title: "Categories",
       type: "array",
       of: [{ type: "string" }],
-      options: {
-        list: [
-          { title: "Singing for Lung Health", value: "Singing for Lung Health" },
-          { title: "Music for Wellbeing",     value: "Music for Wellbeing" },
-          { title: "Wired Sounds",            value: "Wired Sounds" },
-          { title: "Parkinson's",             value: "Parkinson's" },
-          { title: "Music & Dementia",        value: "Music & Dementia" },
-          { title: "Community",               value: "Community" },
-          { title: "Fundraising",             value: "Fundraising" },
-          { title: "Partnerships",            value: "Partnerships" },
-          { title: "Our Story",               value: "Our Story" },
-        ],
-      },
-      description: "Used for filtering and search — select all that apply.",
+      options: { layout: "tags" },
+      description: "Type a category and press Enter to add it. Use existing ones (e.g. 'Community', 'Fundraising') or create your own.",
     }),
     defineField({
       name: "coverImage",
