@@ -70,10 +70,47 @@ export default async function FindASessionPage() {
         </div>
       </section>
 
-      {/* ── Session list ─────────────────────────────────────────────────── */}
+      {/* ── Online session ───────────────────────────────────────────────── */}
+      <section className="py-16 px-6" style={{ backgroundColor: "#ffffff" }}>
+        <div className="max-w-7xl mx-auto flex flex-col gap-6">
+          <div className="flex items-center gap-3">
+            <SectionLabel>Online · Nationwide</SectionLabel>
+            <span className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ backgroundColor: "#e8f5f1", color: "#1D9E75" }}>
+              Ongoing
+            </span>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4 p-5 rounded-lg" style={{ backgroundColor: "#f9f9f9", border: "1px solid rgba(0,0,0,0.08)" }} role="listitem">
+            <div className="w-1 self-stretch rounded-full shrink-0" style={{ backgroundColor: "#F5A623", minHeight: 40 }} aria-hidden="true" />
+            <div className="flex flex-col gap-3 flex-1">
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-xs font-medium" style={{ color: "#F5A623" }}>Singing for Lung Health</p>
+                <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: "#e8f5f1", color: "#1D9E75" }}>Online</span>
+              </div>
+              <p className="text-base font-black leading-snug" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>
+                Asthma and Lung UK — Motivational Mondays
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <span className="flex items-center gap-1.5 text-sm" style={{ color: "#1a1a1a" }}>
+                  <IconCalendar size={14} style={{ color: "#888888" }} />
+                  Every Monday · 10am – 10.30am
+                </span>
+                <span className="flex items-center gap-1.5 text-sm" style={{ color: "#444444" }}>
+                  <IconMapPin size={14} style={{ color: "#888888" }} />
+                  Online · Open to anyone across the UK · Free
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: "#444444" }}>
+                A six-week introductory course followed by an ongoing weekly group. Helen leads these national online sessions on behalf of Asthma and Lung UK. If you cannot get to one of our in-person groups, or if you would like to try a session from the comfort of your own home first, this is a wonderful place to start.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── In-person session list ───────────────────────────────────────── */}
       <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
         <div className="max-w-7xl mx-auto flex flex-col gap-6">
-          <SectionLabel>All sessions</SectionLabel>
+          <SectionLabel>In-person sessions</SectionLabel>
           <div className="flex flex-col gap-4" role="list" aria-label="Session list">
             {sessions.map((s) => (
               <div key={s.id ?? s.location} className="flex flex-col sm:flex-row sm:items-center gap-4 p-5 rounded-lg bg-white" style={{ border: "1px solid rgba(0,0,0,0.08)" }} role="listitem">
