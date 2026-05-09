@@ -153,7 +153,7 @@ export default async function WiredSoundsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
             {[
               { value: "12",   label: "artists performed" },
-              { value: "£283", label: "raised for Swell Music CIC" },
+              { value: "360+", label: "attendees across the two days" },
               { value: "1",    label: "unforgettable day" },
             ].map((s) => (
               <div key={s.label} className="rounded-lg px-6 py-6 flex flex-col gap-1" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
