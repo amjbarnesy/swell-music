@@ -46,6 +46,9 @@ export default async function NewsPage() {
             className="text-4xl sm:text-5xl font-black"
             style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}
           />
+          <p className="text-base leading-relaxed max-w-2xl" style={{ color: "#aaaaaa" }}>
+            The latest news and stories from Swell Music CIC — session updates, programme news, community moments, and more. We add new stories regularly, so keep an eye out for what we have been up to.
+          </p>
         </div>
       </section>
 
