@@ -4,6 +4,7 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
+import GalleryLightbox from "@/components/ui/GalleryLightbox";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -140,19 +141,7 @@ export default async function NewsArticlePage({ params }: Params) {
         <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
           <div className="max-w-2xl mx-auto flex flex-col gap-6">
             <SectionLabel>Photos</SectionLabel>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {post.gallery.map((img, i) => (
-                <div key={i} className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <Image
-                    src={img.url}
-                    alt={img.alt ?? `${post.title} photo ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 50vw, 33vw"
-                  />
-                </div>
-              ))}
-            </div>
+            <GalleryLightbox images={post.gallery} postTitle={post.title} columns={3} gridAspectRatio="4/3" />
           </div>
         </section>
       )}

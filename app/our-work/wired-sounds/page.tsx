@@ -6,6 +6,7 @@ import QuoteBlock from "@/components/ui/QuoteBlock";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import GalleryLightbox from "@/components/ui/GalleryLightbox";
 import { IconVolume, IconUsers, IconStar, IconPlayerPlay } from "@tabler/icons-react";
 import type { Metadata } from "next";
 
@@ -172,19 +173,7 @@ export default async function WiredSoundsPage() {
               <SectionLabel>In the room</SectionLabel>
               <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>Festival gallery</h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-              {cms.gallery!.map((img, i) => (
-                <div key={i} className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                  <Image
-                    src={img.url}
-                    alt={img.alt ?? `Wired Sounds Festival photo ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 50vw, 33vw"
-                  />
-                </div>
-              ))}
-            </div>
+            <GalleryLightbox images={cms.gallery!} postTitle="Wired Sounds Festival" columns={3} gridAspectRatio="4/3" />
           </div>
         </section>
       )}
