@@ -1,9 +1,11 @@
 import { sanityFetch } from "@/sanity/lib/client";
-import { ALL_SESSIONS_QUERY, PAGE_HEADER_QUERY } from "@/sanity/lib/queries";
+import { ALL_SESSIONS_QUERY, PAGE_HEADER_QUERY, SESSION_LOCATIONS_QUERY } from "@/sanity/lib/queries";
 import SectionLabel from "@/components/ui/SectionLabel";
 import HighlightHeading from "@/components/ui/HighlightHeading";
+import MapWrapper from "@/components/contact/MapWrapper";
 import { IconCalendar, IconMapPin } from "@tabler/icons-react";
 import fallbackSessions from "@/data/sessions.json";
+import type { SessionLocation } from "@/components/contact/SessionsMap";
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -20,6 +22,15 @@ const HEADER_FALLBACK = {
   subheading: "All sessions are free. No booking required — just turn up. If you're unsure which session is right for you, call us on 07917 799456.",
 };
 
+const LOCATIONS_FALLBACK: SessionLocation[] = [
+  { _id: "1", name: "The Seagull Theatre",             address: "Morton Road, Lowestoft, NR33 0JH",        note: "Friday Music for Wellbeing · Open Access · Wired Sounds Festival", lat: 52.4548, lng: 1.7352 },
+  { _id: "2", name: "Reydon Sports & Community Centre", address: "Near Southwold",                          note: "Singing for Lung Health — Tuesdays 10am–11.30am",                   lat: 52.3271, lng: 1.6612 },
+  { _id: "3", name: "Pavilion Theatre & Bandstand",     address: "Gorleston",                               note: "Singing for Lung Health — alternate Wednesdays",                    lat: 52.5716, lng: 1.7328 },
+  { _id: "4", name: "Shrublands Community Trust",       address: "Gorleston",                               note: "Singing for Lung Health & Open Access — alternate Wednesdays",     lat: 52.5783, lng: 1.7246 },
+  { _id: "5", name: "First Light — Battery of Ideas",   address: "London Road North, Lowestoft",            note: "Community singing pop-up sessions",                                 lat: 52.4793, lng: 1.7452 },
+  { _id: "6", name: "Halesworth Community Centre",      address: "Quay Street, Halesworth, IP19 8ET",       note: "Community singing & accessible carol services",                     lat: 52.3493, lng: 1.5068 },
+];
+
 const PROGRAMME_COLOUR: Record<string, string> = {
   "lung-health": "#F5A623", parkinsons: "#1D9E75", dementia: "#7F77DD", "wired-sounds": "#D85A30",
 };
@@ -29,16 +40,19 @@ const PROGRAMME_LABEL: Record<string, string> = {
 };
 
 export default async function FindASessionPage() {
-  const [header, sanitySessionsRaw] = await Promise.all([
+  const [header, sanitySessionsRaw, fetchedLocations] = await Promise.all([
     sanityFetch<typeof HEADER_FALLBACK>({ query: PAGE_HEADER_QUERY, params: { page: "find-a-session" } }),
     sanityFetch<typeof fallbackSessions>({ query: ALL_SESSIONS_QUERY }),
+    sanityFetch<SessionLocation[]>({ query: SESSION_LOCATIONS_QUERY }),
   ]);
 
-  const h = header ?? HEADER_FALLBACK;
-  const sessions = (sanitySessionsRaw && sanitySessionsRaw.length > 0) ? sanitySessionsRaw : fallbackSessions;
+  const h         = header ?? HEADER_FALLBACK;
+  const sessions  = (sanitySessionsRaw && sanitySessionsRaw.length > 0) ? sanitySessionsRaw : fallbackSessions;
+  const locations = (fetchedLocations  && fetchedLocations.length  > 0) ? fetchedLocations  : LOCATIONS_FALLBACK;
 
   return (
     <>
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           {h.eyebrow && <SectionLabel>{h.eyebrow}</SectionLabel>}
@@ -53,6 +67,7 @@ export default async function FindASessionPage() {
         </div>
       </section>
 
+      {/* ── Session list ─────────────────────────────────────────────────── */}
       <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
         <div className="max-w-7xl mx-auto flex flex-col gap-6">
           <SectionLabel>All sessions</SectionLabel>
@@ -75,6 +90,35 @@ export default async function FindASessionPage() {
                     </span>
                   </div>
                   {s.notes && <p className="text-xs" style={{ color: "#888888" }}>{s.notes}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Map ──────────────────────────────────────────────────────────── */}
+      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <div className="max-w-7xl mx-auto flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <SectionLabel>Where you&apos;ll find us</SectionLabel>
+            <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>Our session locations</h2>
+            <p className="text-sm max-w-xl" style={{ color: "#888888" }}>
+              Click any pin for venue details and what sessions run there.
+            </p>
+          </div>
+
+          <div style={{ height: "480px", borderRadius: "0.5rem", overflow: "hidden" }}>
+            <MapWrapper locations={locations} />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {locations.map((loc) => (
+              <div key={loc._id} className="flex items-start gap-3 rounded-lg px-4 py-3" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#F5A623" }} />
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-sm font-medium" style={{ color: "#ffffff" }}>{loc.name}</span>
+                  {loc.address && <span className="text-xs" style={{ color: "#888888" }}>{loc.address}</span>}
                 </div>
               </div>
             ))}
