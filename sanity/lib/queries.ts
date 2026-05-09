@@ -52,6 +52,19 @@ export const PROGRAMME_PAGE_QUERY = `
   }
 `;
 
+// ─── Wired Sounds page ────────────────────────────────────────────────────────
+export const WIRED_SOUNDS_PAGE_QUERY = `
+  *[_type == "wiredSoundsPage"][0]{
+    videoUrl,
+    "gallery": gallery[]{
+      "url": asset->url,
+      alt
+    },
+    bodyHeading,
+    body
+  }
+`;
+
 // ─── Sessions ─────────────────────────────────────────────────────────────────
 export const ALL_SESSIONS_QUERY = `
   *[_type == "session" && active == true] | order(programme asc, day asc){

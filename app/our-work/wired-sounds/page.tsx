@@ -1,9 +1,15 @@
+import { sanityFetch } from "@/sanity/lib/client";
+import { WIRED_SOUNDS_PAGE_QUERY } from "@/sanity/lib/queries";
 import ProgrammeHero from "@/components/programme/ProgrammeHero";
 import SectionLabel from "@/components/ui/SectionLabel";
 import QuoteBlock from "@/components/ui/QuoteBlock";
 import Button from "@/components/ui/Button";
-import { IconVolume, IconUsers, IconStar } from "@tabler/icons-react";
+import Image from "next/image";
+import { PortableText } from "@portabletext/react";
+import { IconVolume, IconUsers, IconStar, IconPlayerPlay } from "@tabler/icons-react";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Wired Sounds Festival — Swell Music CIC",
@@ -11,28 +17,68 @@ export const metadata: Metadata = {
     "An annual neurodivergent-friendly music festival celebrating neurodiverse creativity. 12 artists performed in 2025.",
 };
 
+// ─── YouTube embed helper ─────────────────────────────────────────────────────
+function getYouTubeEmbedUrl(url: string): string | null {
+  try {
+    const u = new URL(url);
+    let id: string | null = null;
+    if (u.hostname === "youtu.be") {
+      id = u.pathname.slice(1);
+    } else if (u.hostname.includes("youtube.com")) {
+      id = u.searchParams.get("v");
+    }
+    return id
+      ? `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&showinfo=0&iv_load_policy=3`
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+// ─── Portable text components ─────────────────────────────────────────────────
+const ptComponents = {
+  block: {
+    normal:     ({ children }: any) => <p className="text-sm leading-relaxed mb-3" style={{ color: "#444444" }}>{children}</p>,
+    h2:         ({ children }: any) => <h2 className="text-3xl font-black mt-8 mb-3" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h2>,
+    h3:         ({ children }: any) => <h3 className="text-lg font-bold mt-5 mb-2" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>{children}</h3>,
+    blockquote: ({ children }: any) => <blockquote className="border-l-4 pl-4 italic my-4 text-sm" style={{ borderColor: "#D85A30", color: "#444444" }}>{children}</blockquote>,
+  },
+  list: {
+    bullet: ({ children }: any) => <ul className="list-disc list-inside space-y-1 mb-3 text-sm" style={{ color: "#444444" }}>{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal list-inside space-y-1 mb-3 text-sm" style={{ color: "#444444" }}>{children}</ol>,
+  },
+  marks: {
+    strong: ({ children }: any) => <strong className="font-semibold">{children}</strong>,
+    em:     ({ children }: any) => <em className="italic">{children}</em>,
+    link:   ({ value, children }: any) => (
+      <a href={value?.href} className="underline hover:opacity-75" style={{ color: "#D85A30" }}
+        target={value?.href?.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
+  },
+};
+
 const features = [
-  {
-    icon: IconVolume,
-    title: "Low-sensory environment",
-    description:
-      "Carefully designed to reduce sensory overwhelm — adjusted lighting, clear spaces, and a relaxed atmosphere throughout.",
-  },
-  {
-    icon: IconStar,
-    title: "Neurodivergent artists",
-    description:
-      "Wired Sounds exists to platform musicians whose work deserves a stage — 12 artists performed in 2025.",
-  },
-  {
-    icon: IconUsers,
-    title: "Inclusive audience",
-    description:
-      "A festival designed for everyone, with a particular welcome for neurodivergent attendees and their families.",
-  },
+  { icon: IconVolume, title: "Low-sensory environment",  description: "Carefully designed to reduce sensory overwhelm — adjusted lighting, clear spaces, and a relaxed atmosphere throughout." },
+  { icon: IconStar,   title: "Neurodivergent artists",   description: "Wired Sounds exists to platform musicians whose work deserves a stage — 12 artists performed in 2025." },
+  { icon: IconUsers,  title: "Inclusive audience",       description: "A festival designed for everyone, with a particular welcome for neurodivergent attendees and their families." },
 ];
 
-export default function WiredSoundsPage() {
+interface WiredSoundsData {
+  videoUrl?: string;
+  gallery?: Array<{ url: string; alt?: string }>;
+  bodyHeading?: string;
+  body?: unknown[];
+}
+
+export default async function WiredSoundsPage() {
+  const cms = await sanityFetch<WiredSoundsData>({ query: WIRED_SOUNDS_PAGE_QUERY }) ?? {};
+
+  const embedUrl   = cms.videoUrl ? getYouTubeEmbedUrl(cms.videoUrl) : null;
+  const hasGallery = cms.gallery && cms.gallery.length > 0;
+  const hasBody    = cms.bodyHeading || (cms.body && cms.body.length > 0);
+
   return (
     <>
       <ProgrammeHero
@@ -45,6 +91,36 @@ export default function WiredSoundsPage() {
         badgeColour="coral"
       />
 
+      {/* YouTube video */}
+      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <div className="max-w-7xl mx-auto">
+          {embedUrl ? (
+            <div className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+              <iframe
+                src={embedUrl}
+                title="Wired Sounds Festival video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          ) : (
+            <div
+              className="relative flex items-center justify-center rounded-lg"
+              style={{ aspectRatio: "16/9", border: "2px dashed #D85A30", backgroundColor: "#2a2a2a" }}
+            >
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: "#D85A30" }}>
+                  <IconPlayerPlay size={24} color="#fff" />
+                </div>
+                <p className="text-sm" style={{ color: "#888888" }}>Festival video — add a YouTube link in the CMS</p>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* What makes it different */}
       <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
         <div className="max-w-7xl mx-auto flex flex-col gap-10">
           <div className="flex flex-col gap-2">
@@ -88,6 +164,50 @@ export default function WiredSoundsPage() {
         </div>
       </section>
 
+      {/* Gallery — up to 12 photos */}
+      {hasGallery && (
+        <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+            <div className="flex flex-col gap-2">
+              <SectionLabel>In the room</SectionLabel>
+              <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>Festival gallery</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+              {cms.gallery!.map((img, i) => (
+                <div key={i} className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                  <Image
+                    src={img.url}
+                    alt={img.alt ?? `Wired Sounds Festival photo ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 50vw, 33vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Additional body content */}
+      {hasBody && (
+        <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
+          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+            {cms.bodyHeading && (
+              <h2 className="text-3xl font-black" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>
+                {cms.bodyHeading}
+              </h2>
+            )}
+            {cms.body && cms.body.length > 0 && (
+              <div className="sm:columns-2 gap-12 [&>*]:break-inside-avoid">
+                <PortableText value={cms.body as any} components={ptComponents} />
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Quotes */}
       <section className="py-16 px-6" style={{ backgroundColor: "#f9f9f9" }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           <QuoteBlock quote="Finally a festival where I don't have to mask. I was just me, and the music was extraordinary." attribution="Wired Sounds 2025 attendee" />
@@ -95,6 +215,7 @@ export default function WiredSoundsPage() {
         </div>
       </section>
 
+      {/* CTAs */}
       <section className="py-10 px-6" style={{ backgroundColor: "#ffffff" }}>
         <div className="max-w-7xl mx-auto flex flex-wrap gap-4">
           <Button href="/contact" variant="primary">Get involved in 2026</Button>
