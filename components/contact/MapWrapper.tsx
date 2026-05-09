@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { SessionLocation } from "./SessionsMap";
 
 const SessionsMap = dynamic(() => import("./SessionsMap"), {
   ssr: false,
@@ -11,6 +12,6 @@ const SessionsMap = dynamic(() => import("./SessionsMap"), {
   ),
 });
 
-export default function MapWrapper() {
-  return <SessionsMap />;
+export default function MapWrapper({ locations }: { locations: SessionLocation[] }) {
+  return <SessionsMap locations={locations} />;
 }

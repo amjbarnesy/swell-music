@@ -110,6 +110,13 @@ export const REACH_CARDS_QUERY = `
   }
 `;
 
+// ─── Session locations (contact map) ──────────────────────────────────────────
+export const SESSION_LOCATIONS_QUERY = `
+  *[_type == "sessionLocation" && active != false] | order(order asc, name asc){
+    _id, name, address, note, lat, lng
+  }
+`;
+
 // ─── News ─────────────────────────────────────────────────────────────────────
 export const NEWS_INDEX_QUERY = `
   *[_type == "newsPost"] | order(publishedAt desc){

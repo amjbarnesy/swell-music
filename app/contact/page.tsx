@@ -1,15 +1,32 @@
+import { sanityFetch } from "@/sanity/lib/client";
+import { SESSION_LOCATIONS_QUERY } from "@/sanity/lib/queries";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ContactForm from "@/components/contact/ContactForm";
 import MapWrapper from "@/components/contact/MapWrapper";
 import { IconMail, IconPhone, IconBrandFacebook } from "@tabler/icons-react";
+import type { SessionLocation } from "@/components/contact/SessionsMap";
 import type { Metadata } from "next";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Contact — Swell Music CIC",
   description: "Get in touch with Swell Music CIC. We'd love to hear from you.",
 };
 
-export default function ContactPage() {
+const LOCATIONS_FALLBACK: SessionLocation[] = [
+  { _id: "1", name: "The Seagull Theatre",             address: "Morton Road, Lowestoft, NR33 0JH",        note: "Friday Music for Wellbeing · Open Access · Wired Sounds Festival", lat: 52.4548, lng: 1.7352 },
+  { _id: "2", name: "Reydon Sports & Community Centre", address: "Near Southwold",                          note: "Singing for Lung Health — Tuesdays 10am–11.30am",                   lat: 52.3271, lng: 1.6612 },
+  { _id: "3", name: "Pavilion Theatre & Bandstand",     address: "Gorleston",                               note: "Singing for Lung Health — alternate Wednesdays",                    lat: 52.5716, lng: 1.7328 },
+  { _id: "4", name: "Shrublands Community Trust",       address: "Gorleston",                               note: "Singing for Lung Health & Open Access — alternate Wednesdays",     lat: 52.5783, lng: 1.7246 },
+  { _id: "5", name: "First Light — Battery of Ideas",   address: "London Road North, Lowestoft",            note: "Community singing pop-up sessions",                                 lat: 52.4793, lng: 1.7452 },
+  { _id: "6", name: "Halesworth Community Centre",      address: "Quay Street, Halesworth, IP19 8ET",       note: "Community singing & accessible carol services",                     lat: 52.3493, lng: 1.5068 },
+];
+
+export default async function ContactPage() {
+  const fetched = await sanityFetch<SessionLocation[]>({ query: SESSION_LOCATIONS_QUERY });
+  const locations = fetched && fetched.length > 0 ? fetched : LOCATIONS_FALLBACK;
+
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -46,10 +63,7 @@ export default function ContactPage() {
             </div>
 
             <div className="flex flex-col gap-5">
-              <a
-                href="mailto:info@swellmusic.org.uk"
-                className="flex items-start gap-3 group"
-              >
+              <a href="mailto:info@swellmusic.org.uk" className="flex items-start gap-3 group">
                 <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "#FEF3D7" }}>
                   <IconMail size={18} style={{ color: "#854F0B" }} />
                 </div>
@@ -59,10 +73,7 @@ export default function ContactPage() {
                 </div>
               </a>
 
-              <a
-                href="tel:+447917799456"
-                className="flex items-start gap-3 group"
-              >
+              <a href="tel:+447917799456" className="flex items-start gap-3 group">
                 <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "#FEF3D7" }}>
                   <IconPhone size={18} style={{ color: "#854F0B" }} />
                 </div>
@@ -122,24 +133,17 @@ export default function ContactPage() {
 
           {/* Map */}
           <div style={{ height: "480px", borderRadius: "0.5rem", overflow: "hidden" }}>
-            <MapWrapper />
+            <MapWrapper locations={locations} />
           </div>
 
-          {/* Location chips */}
+          {/* Location chips — driven by the same Sanity data */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { name: "The Seagull Theatre",               area: "Morton Road, Lowestoft, NR33 0JH" },
-              { name: "Reydon Sports & Community Centre",   area: "Near Southwold" },
-              { name: "Pavilion Theatre & Bandstand",       area: "Gorleston" },
-              { name: "Shrublands Community Trust",         area: "Gorleston" },
-              { name: "First Light — Battery of Ideas",     area: "London Road North, Lowestoft" },
-              { name: "Halesworth Community Centre",        area: "Quay Street, Halesworth" },
-            ].map((loc) => (
-              <div key={loc.name} className="flex items-start gap-3 rounded-lg px-4 py-3" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
+            {locations.map((loc) => (
+              <div key={loc._id} className="flex items-start gap-3 rounded-lg px-4 py-3" style={{ backgroundColor: "#2a2a2a", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "#F5A623" }} />
                 <div className="flex flex-col gap-0.5">
                   <span className="text-sm font-medium" style={{ color: "#ffffff" }}>{loc.name}</span>
-                  <span className="text-xs" style={{ color: "#888888" }}>{loc.area}</span>
+                  {loc.address && <span className="text-xs" style={{ color: "#888888" }}>{loc.address}</span>}
                 </div>
               </div>
             ))}
