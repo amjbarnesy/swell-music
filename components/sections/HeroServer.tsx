@@ -66,6 +66,14 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
             <Button href={d.heroPrimaryURL!} variant="primary">{d.heroPrimaryCTA}</Button>
             <Button href={d.heroSecondaryURL!} variant="ghost">{d.heroSecondaryCTA}</Button>
           </div>
+
+          {/* BBC trust badge */}
+          <div className="flex items-center gap-2.5 mt-1">
+            <span className="text-xs font-black px-2 py-0.5 rounded" style={{ backgroundColor: "#F5A623", color: "#412402" }}>BBC</span>
+            <p className="text-xs" style={{ color: "#666666" }}>
+              As seen on BBC Look East &amp; BBC News, December 2025
+            </p>
+          </div>
         </div>
 
         {/* Right — video */}
