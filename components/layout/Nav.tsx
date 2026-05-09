@@ -17,8 +17,8 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header style={{ backgroundColor: "#1a1a1a" }} className="sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+    <header style={{ backgroundColor: "#1a1a1a" }} className="sticky top-0 z-50 px-6">
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/" aria-label="Swell Music — home">
           <Image
