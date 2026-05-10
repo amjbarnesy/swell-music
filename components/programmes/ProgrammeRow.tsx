@@ -29,9 +29,9 @@ export function ProgrammeRow({ programme, index, total }: ProgrammeRowProps) {
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.05 }}
       className="
-        grid items-stretch gap-5 border-b border-black/15 py-8
-        md:grid-cols-[auto_1fr] md:items-center md:gap-7 md:py-11
-        lg:grid-cols-[120px_1fr_420px] lg:gap-12 lg:py-14
+        grid items-stretch gap-5 border-b border-black/15 py-4
+        md:grid-cols-[auto_1fr] md:items-center md:gap-7 md:py-5
+        lg:grid-cols-[120px_1fr_420px] lg:gap-12 lg:py-7
       "
       style={
         {

@@ -23,10 +23,10 @@ export function ProgrammesSection({
   return (
     <section
       id={id}
-      className="bg-paper px-6 py-14 text-ink md:px-10 md:py-20 lg:px-20 lg:py-24"
+      className="bg-paper px-6 py-7 text-ink md:px-10 md:py-10 lg:px-20 lg:py-12"
     >
       <div className="mx-auto max-w-7xl">
-        <header className="mb-10 md:mb-14">
+        <header className="mb-5 md:mb-7">
           <p className="mb-3 font-mono text-xs font-semibold tracking-[0.18em] text-amber md:text-sm">
             {kicker}
           </p>

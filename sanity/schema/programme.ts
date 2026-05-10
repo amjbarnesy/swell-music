@@ -37,6 +37,22 @@ export default defineType({
       description: "One or two sentences shown on the homepage card.",
     }),
     defineField({
+      name: "featuredImage",
+      title: "Featured image",
+      type: "image",
+      group: "card",
+      options: { hotspot: true },
+      description: "Shown alongside the programme row on the homepage and Our Work page. If omitted a striped placeholder is shown.",
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "Describe the image for screen readers.",
+        }),
+      ],
+    }),
+    defineField({
       name: "badgeLabel",
       title: "Badge label",
       type: "string",

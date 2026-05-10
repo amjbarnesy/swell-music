@@ -60,6 +60,9 @@ function toRow(p: ProgrammeData): Programme {
     colorDeep: colours.colorDeep,
     iconKey:   ICON_KEY_MAP[p.iconName ?? "music"] ?? "note",
     href:      `/our-work/${slug}`,
+    ...(p.featuredImageUrl
+      ? { image: { src: p.featuredImageUrl, alt: p.featuredImageAlt ?? p.title } }
+      : {}),
   };
 }
 

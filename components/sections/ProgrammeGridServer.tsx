@@ -45,6 +45,8 @@ export interface ProgrammeData {
   badgeLabel?: string;
   theme?: string;
   iconName?: string;
+  featuredImageUrl?: string;
+  featuredImageAlt?: string;
 }
 
 // ─── Fallback data (no Sanity yet) ────────────────────────────────────────────
