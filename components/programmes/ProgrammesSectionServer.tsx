@@ -54,7 +54,7 @@ function toRow(p: ProgrammeData): Programme {
     name:      p.title,
     blurb:     p.shortDescription ?? "",
     tag:       p.badgeLabel ?? "",
-    location:  LOCATION_MAP[slug] ?? FALLBACK_LOCATION,
+    location:  p.locationSummary ?? LOCATION_MAP[slug] ?? FALLBACK_LOCATION,
     color:     colours.color,
     colorSoft: colours.colorSoft,
     colorDeep: colours.colorDeep,

@@ -28,7 +28,7 @@ export const FUNDERS_QUERY = `
 export const PROGRAMMES_QUERY = `
   *[_type == "programme" && active != false] | order(order asc){
     _id, title, "slug": slug.current,
-    shortDescription, badgeLabel, theme, iconName,
+    shortDescription, badgeLabel, theme, iconName, locationSummary,
     "featuredImageUrl": featuredImage.asset->url,
     "featuredImageAlt": featuredImage.alt
   }

@@ -45,6 +45,7 @@ export interface ProgrammeData {
   badgeLabel?: string;
   theme?: string;
   iconName?: string;
+  locationSummary?: string;
   featuredImageUrl?: string;
   featuredImageAlt?: string;
 }

@@ -37,6 +37,13 @@ export default defineType({
       description: "One or two sentences shown on the homepage card.",
     }),
     defineField({
+      name: "locationSummary",
+      title: "Location summary",
+      type: "string",
+      group: "card",
+      description: "Shown beneath the CTA button on the homepage row, e.g. 'The Seagull Theatre, Lowestoft  ·  Tuesdays'",
+    }),
+    defineField({
       name: "featuredImage",
       title: "Featured image",
       type: "image",
