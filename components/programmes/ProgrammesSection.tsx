@@ -30,11 +30,11 @@ export function ProgrammesSection({
           <p className="mb-3 font-mono text-xs font-semibold tracking-[0.18em] text-amber md:text-sm">
             {kicker}
           </p>
-          <h2 className="font-serif text-[48px] font-extrabold leading-[0.95] tracking-[-0.025em] md:text-[64px] lg:text-[84px]">
+          <h2 className="font-serif text-3xl font-extrabold leading-tight tracking-[-0.02em] sm:text-4xl">
             {title}
           </h2>
           {lede && (
-            <p className="mt-4 max-w-xl text-[15.5px] leading-[1.5] text-black/65 md:text-lg">
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-black/65 sm:text-base">
               {lede}
             </p>
           )}

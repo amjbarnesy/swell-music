@@ -82,16 +82,15 @@ export function ProgrammeRow({ programme, index, total }: ProgrammeRowProps) {
 
         <h3
           className="
-            mt-4 font-serif font-bold tracking-[-0.025em]
-            text-[34px] leading-[1.02]
-            md:text-[42px]
-            lg:text-[56px] lg:leading-none
+            mt-4 font-serif font-bold tracking-[-0.02em] leading-tight
+            text-2xl
+            sm:text-3xl
           "
         >
           {programme.name}
         </h3>
 
-        <p className="mt-3 max-w-[540px] text-[15.5px] leading-[1.55] text-black/70 md:text-[16.5px] lg:text-lg">
+        <p className="mt-3 max-w-[540px] text-sm leading-relaxed text-black/70 sm:text-base">
           {programme.blurb}
         </p>
 
