@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/client";
 import { HERO_QUERY, FUNDERS_QUERY, FEATURED_TESTIMONIALS_QUERY, PROGRAMMES_QUERY } from "@/sanity/lib/queries";
 import HeroServer from "@/components/sections/HeroServer";
-import ProgrammeGridServer from "@/components/sections/ProgrammeGridServer";
+import { ProgrammesSectionServer } from "@/components/programmes/ProgrammesSectionServer";
 import type { ProgrammeData } from "@/components/sections/ProgrammeGridServer";
 import WiredSoundsStrip from "@/components/sections/WiredSoundsStrip";
 import ImpactDashboard from "@/components/sections/ImpactDashboard";
@@ -22,7 +22,7 @@ export default async function HomePage() {
   return (
     <>
       <HeroServer hero={hero as Record<string, string> | null} />
-      <ProgrammeGridServer programmes={programmes as ProgrammeData[] | null} />
+      <ProgrammesSectionServer programmes={programmes as ProgrammeData[] | null} />
       <WiredSoundsStrip />
       <div style={{ height: "3px", backgroundColor: "#F5A623" }} />
       <ImpactDashboard testimonials={testimonials as Array<{ _id: string; quote: string; attribution: string }> | null} />

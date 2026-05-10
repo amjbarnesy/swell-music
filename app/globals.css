@@ -23,9 +23,15 @@
   --color-coral-light:  #FAECE7;
   --color-coral-dark:   #712B13;
 
+  /* Programme section semantic aliases */
+  --color-paper:  #f5f3ee;
+  --color-amber:  #F5A623;
+
   /* Fonts */
   --font-display: "Playfair Display", Georgia, serif;
   --font-body:    "DM Sans", system-ui, sans-serif;
+  --font-serif:   "Playfair Display", Georgia, serif;
+  --font-mono:    ui-monospace, "Courier New", monospace;
 }
 
 html {

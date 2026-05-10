@@ -1,6 +1,6 @@
 import { sanityFetch } from "@/sanity/lib/client";
 import { PROGRAMMES_QUERY } from "@/sanity/lib/queries";
-import ProgrammeGridServer from "@/components/sections/ProgrammeGridServer";
+import { ProgrammesSectionServer } from "@/components/programmes/ProgrammesSectionServer";
 import type { ProgrammeData } from "@/components/sections/ProgrammeGridServer";
 import WiredSoundsStrip from "@/components/sections/WiredSoundsStrip";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -37,7 +37,7 @@ export default async function OurWorkPage() {
       </section>
 
       {/* Programme grid — same as homepage */}
-      <ProgrammeGridServer programmes={programmes} />
+      <ProgrammesSectionServer programmes={programmes} />
 
       {/* Wired Sounds strip — same as homepage */}
       <WiredSoundsStrip />
