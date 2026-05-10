@@ -47,8 +47,8 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
   const d = { ...DEFAULTS, ...hero };
 
   return (
-    <section style={{ backgroundColor: "#1a1a1a" }} className="pt-16 pb-0">
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section style={{ backgroundColor: "#1a1a1a" }} className="px-6 pt-16 pb-0">
+      <div className="max-w-7xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left */}
         <div className="flex flex-col gap-6">
           <SectionLabel>East Suffolk · Free for all</SectionLabel>
@@ -109,12 +109,14 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
       </div>
 
       {/* Stat bar */}
-      <div className="w-full py-4 px-6 flex flex-wrap items-center justify-between gap-4" style={{ backgroundColor: "#F5A623" }}>
+      <div className="-mx-6 py-4" style={{ backgroundColor: "#F5A623" }}>
+        <div className="max-w-7xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
           {["5+ free weekly sessions", "4 health conditions", "Free always, no booking", "Founded 2020"].map((stat) => (
             <p key={stat} className="text-sm font-medium" style={{ color: "#412402", fontFamily: "var(--font-body)" }}>
               {stat}
             </p>
           ))}
+        </div>
       </div>
     </section>
   );
