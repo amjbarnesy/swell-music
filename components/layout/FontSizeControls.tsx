@@ -45,14 +45,14 @@ export default function FontSizeControls() {
         style={{
           fontFamily: "var(--font-body)",
           fontSize: "11px",
-          color: idx === 0 ? "#444444" : "#888888",
+          color: idx === 0 ? "#555555" : "#ffffff",
           background: "none",
           border: "none",
           cursor: idx === 0 ? "default" : "pointer",
           lineHeight: 1,
         }}
         onMouseEnter={(e) => { if (idx > 0) (e.currentTarget as HTMLElement).style.color = "#F5A623"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === 0 ? "#444444" : "#888888"; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === 0 ? "#555555" : "#ffffff"; }}
       >
         A
       </button>
@@ -67,14 +67,14 @@ export default function FontSizeControls() {
         style={{
           fontFamily: "var(--font-body)",
           fontSize: "15px",
-          color: idx === SIZES.length - 1 ? "#444444" : "#888888",
+          color: idx === SIZES.length - 1 ? "#555555" : "#ffffff",
           background: "none",
           border: "none",
           cursor: idx === SIZES.length - 1 ? "default" : "pointer",
           lineHeight: 1,
         }}
         onMouseEnter={(e) => { if (idx < SIZES.length - 1) (e.currentTarget as HTMLElement).style.color = "#F5A623"; }}
-        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === SIZES.length - 1 ? "#444444" : "#888888"; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === SIZES.length - 1 ? "#555555" : "#ffffff"; }}
       >
         A
       </button>
