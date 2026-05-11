@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { IconMenu2, IconX, IconChevronDown } from "@tabler/icons-react";
 import { DONATE_URL } from "@/lib/donate";
+import FontSizeControls from "@/components/layout/FontSizeControls";
 
 // ─── Nav structure ────────────────────────────────────────────────────────────
 type NavItem =
@@ -150,6 +151,7 @@ export default function Nav() {
           {NAV.map((item) => (
             <DropdownItem key={item.href} item={item} />
           ))}
+          <FontSizeControls />
           <a
             href={DONATE_URL}
             target="_blank"
@@ -200,7 +202,11 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="flex items-center gap-3 pt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <span className="text-xs" style={{ color: "#666666", fontFamily: "var(--font-body)" }}>Text size</span>
+            <FontSizeControls />
+          </div>
+          <div className="flex flex-col gap-3">
             <Link
               href="/get-involved/find-a-session"
               className="inline-block px-6 py-3 text-base font-medium rounded text-center"
