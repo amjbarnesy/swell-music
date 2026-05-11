@@ -8,19 +8,11 @@ export type ProgrammeOption = {
   _id: string;
   title: string;
   slug: string;
-  sessionKey?: string;
   badgeLabel?: string;
-};
-
-export type SessionOption = {
-  _id: string;
-  programme: string;
-  location: string;
 };
 
 type Props = {
   programmes: ProgrammeOption[];
-  sessions: SessionOption[];
 };
 
 const inputClass = "w-full px-4 py-3 rounded-lg text-sm outline-none";
@@ -34,32 +26,9 @@ const selectStyle = {
 };
 const labelStyle = { color: "#1a1a1a", fontFamily: "var(--font-body)" };
 
-export default function ReferralForm({ programmes, sessions }: Props) {
-  const [status, setStatus]         = useState<Status>("idle");
-  const [errorMsg, setErrorMsg]     = useState("");
-  const [selectedProg, setSelectedProg] = useState("");
-  const [selectedSessionKey, setSelectedSessionKey] = useState("");
-
-  // Split comma-separated location strings into individual entries, deduplicate
-  function flattenLocations(locs: string[]): string[] {
-    return Array.from(
-      new Set(
-        locs
-          .flatMap((l) => l.split(",").map((s) => s.trim()))
-          .filter(Boolean)
-      )
-    );
-  }
-
-  // Unique locations for the selected programme, or all locations if none selected
-  const locationOptions: string[] = selectedSessionKey
-    ? flattenLocations(
-        sessions
-          .filter((s) => s.programme === selectedSessionKey)
-          .map((s) => s.location)
-          .filter(Boolean)
-      )
-    : flattenLocations(sessions.map((s) => s.location).filter(Boolean));
+export default function ReferralForm({ programmes }: Props) {
+  const [status, setStatus]     = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -67,8 +36,8 @@ export default function ReferralForm({ programmes, sessions }: Props) {
     const fd = new FormData(e.currentTarget);
 
     // Resolve human-readable programme name for the email
-    const progSlug   = fd.get("condition") as string;
-    const progLabel  = programmes.find((p) => p.slug === progSlug)?.title ?? progSlug;
+    const progSlug  = fd.get("condition") as string;
+    const progLabel = programmes.find((p) => p.slug === progSlug)?.title ?? progSlug;
 
     const payload = {
       referrerName:         fd.get("referrerName"),
@@ -78,7 +47,7 @@ export default function ReferralForm({ programmes, sessions }: Props) {
       referrerPhone:        fd.get("referrerPhone"),
       participantName:      fd.get("participantName"),
       condition:            progLabel || "Not sure — please advise",
-      location:             fd.get("location"),
+      area:                 fd.get("area"),
       notes:                fd.get("notes"),
     };
 
@@ -183,25 +152,12 @@ export default function ReferralForm({ programmes, sessions }: Props) {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Programme — dynamic from Sanity */}
+          {/* Programme — dynamic from Sanity, no maintenance needed */}
           <div className="flex flex-col gap-1.5">
             <label htmlFor="condition" className="text-sm font-medium" style={labelStyle}>
               Programme most suitable <span style={{ color: "#F5A623" }}>*</span>
             </label>
-            <select
-              id="condition"
-              name="condition"
-              required
-              className={inputClass}
-              style={selectStyle}
-              value={selectedProg}
-              onChange={(e) => {
-                const slug = e.target.value;
-                setSelectedProg(slug);
-                const prog = programmes.find((p) => p.slug === slug);
-                setSelectedSessionKey(prog?.sessionKey ?? slug);
-              }}
-            >
+            <select id="condition" name="condition" required className={inputClass} style={selectStyle}>
               <option value="">Select a programme…</option>
               {programmes.map((p) => (
                 <option key={p._id} value={p.slug}>
@@ -212,34 +168,15 @@ export default function ReferralForm({ programmes, sessions }: Props) {
             </select>
           </div>
 
-          {/* Location — filtered by selected programme */}
+          {/* Town / area — helps us suggest the most convenient session */}
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="location" className="text-sm font-medium" style={labelStyle}>
-              Preferred location
+            <label htmlFor="area" className="text-sm font-medium" style={labelStyle}>
+              Town or area <span className="text-xs font-normal" style={{ color: "#888888" }}>(optional)</span>
             </label>
-            <select
-              id="location"
-              name="location"
-              className={inputClass}
-              style={{
-                ...selectStyle,
-                opacity: locationOptions.length === 0 ? 0.5 : 1,
-              }}
-            >
-              <option value="">
-                {selectedSessionKey && locationOptions.length === 0
-                  ? "No locations found"
-                  : "No preference"}
-              </option>
-              {locationOptions.map((loc) => (
-                <option key={loc} value={loc}>{loc}</option>
-              ))}
-            </select>
-            {selectedSessionKey && locationOptions.length > 0 && (
-              <p className="text-xs" style={{ color: "#888888" }}>
-                Showing locations for the selected programme
-              </p>
-            )}
+            <input id="area" name="area" type="text"
+              placeholder="e.g. Lowestoft, Beccles, Southwold"
+              className={inputClass} style={inputStyle} />
+            <p className="text-xs" style={{ color: "#888888" }}>Helps us suggest the most convenient session</p>
           </div>
         </div>
 

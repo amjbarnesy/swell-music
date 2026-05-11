@@ -30,17 +30,7 @@ export const PROGRAMMES_QUERY = `
     _id, title, "slug": slug.current,
     shortDescription, badgeLabel, theme, iconName, locationSummary,
     "featuredImageUrl": featuredImage.asset->url,
-    "featuredImageAlt": featuredImage.alt,
-    "sessionKey": select(
-      defined(sessionKey) => sessionKey,
-      slug.current == "music-for-well-being" => "wellbeing",
-      slug.current == "dementia"             => "dementia",
-      slug.current == "lung-health"          => "lung-health",
-      slug.current == "parkinsons"           => "parkinsons",
-      slug.current == "open-access"          => "open-access",
-      slug.current == "wired-sounds"         => "wired-sounds",
-      slug.current
-    )
+    "featuredImageAlt": featuredImage.alt
   }
 `;
 

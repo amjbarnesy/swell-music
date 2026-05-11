@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {
       referrerName, referrerRole, referrerOrganisation, referrerEmail, referrerPhone,
-      participantName, condition, location, notes,
+      participantName, condition, area, notes,
     } = body;
 
     if (!referrerName || !referrerEmail || !participantName) {
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
           <h3>About the person being referred</h3>
           <p><strong>First name:</strong> ${participantName}</p>
           <p><strong>Programme / condition:</strong> ${condition ?? "Not specified"}</p>
-          <p><strong>Preferred location:</strong> ${location ?? "No preference"}</p>
+          ${area ? `<p><strong>Town / area:</strong> ${area}</p>` : ""}
           ${notes ? `<h3>Additional notes</h3><p style="white-space:pre-wrap">${notes}</p>` : ""}
         `,
       });
