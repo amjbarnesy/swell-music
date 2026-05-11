@@ -26,6 +26,7 @@ const NAV: NavItem[] = [
     href: "/about",
     children: [
       { label: "About us",   href: "/about" },
+      { label: "Gallery",    href: "/gallery" },
       { label: "Support us", href: "/support-us" },
     ],
   },

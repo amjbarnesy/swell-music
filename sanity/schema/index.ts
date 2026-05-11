@@ -5,9 +5,11 @@ import funder             from "./funder";
 import programme          from "./programme";
 import wiredSoundsPage    from "./wiredSoundsPage";
 import session            from "./session";
+import sessionLocation    from "./sessionLocation";
 import testimonial        from "./testimonial";
 import newsPost           from "./newsPost";
 import impactStat         from "./impactStat";
+import galleryImage       from "./galleryImage";
 
 export const schemaTypes = [
   pageHeader,
@@ -17,7 +19,9 @@ export const schemaTypes = [
   programme,
   wiredSoundsPage,
   session,
+  sessionLocation,
   testimonial,
   newsPost,
   impactStat,
+  galleryImage,
 ];

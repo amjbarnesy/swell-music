@@ -146,6 +146,15 @@ export const SESSION_LOCATIONS_QUERY = `
   }
 `;
 
+// ─── Gallery ──────────────────────────────────────────────────────────────────
+export const GALLERY_IMAGES_QUERY = `
+  *[_type == "galleryImage" && active != false] | order(category asc, order asc){
+    _id, category,
+    "url": image.asset->url,
+    "alt": image.alt
+  }
+`;
+
 // ─── News ─────────────────────────────────────────────────────────────────────
 export const NEWS_INDEX_QUERY = `
   *[_type == "newsPost"] | order(publishedAt desc){
