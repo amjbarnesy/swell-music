@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/layout/CookieBanner";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -33,6 +35,8 @@ export default function RootLayout({
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
+        <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );
