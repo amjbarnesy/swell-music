@@ -4,18 +4,61 @@ import { useState } from "react";
 
 type Status = "idle" | "sending" | "success" | "error";
 
+export type ProgrammeOption = {
+  _id: string;
+  title: string;
+  slug: string;
+  badgeLabel?: string;
+};
+
+export type SessionOption = {
+  _id: string;
+  programme: string;
+  location: string;
+};
+
+type Props = {
+  programmes: ProgrammeOption[];
+  sessions: SessionOption[];
+};
+
 const inputClass = "w-full px-4 py-3 rounded-lg text-sm outline-none";
 const inputStyle = { backgroundColor: "#f9f9f9", border: "1px solid rgba(0,0,0,0.12)", color: "#1a1a1a" };
+const selectStyle = {
+  ...inputStyle,
+  appearance: "none" as const,
+  backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "right 14px center",
+};
 const labelStyle = { color: "#1a1a1a", fontFamily: "var(--font-body)" };
 
-export default function ReferralForm() {
-  const [status, setStatus]   = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+export default function ReferralForm({ programmes, sessions }: Props) {
+  const [status, setStatus]         = useState<Status>("idle");
+  const [errorMsg, setErrorMsg]     = useState("");
+  const [selectedProg, setSelectedProg] = useState("");
+
+  // Unique locations for the selected programme, or all locations if none selected
+  const locationOptions: string[] = selectedProg
+    ? Array.from(
+        new Set(
+          sessions
+            .filter((s) => s.programme === selectedProg)
+            .map((s) => s.location)
+            .filter(Boolean)
+        )
+      )
+    : Array.from(new Set(sessions.map((s) => s.location).filter(Boolean)));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     const fd = new FormData(e.currentTarget);
+
+    // Resolve human-readable programme name for the email
+    const progSlug   = fd.get("condition") as string;
+    const progLabel  = programmes.find((p) => p.slug === progSlug)?.title ?? progSlug;
+
     const payload = {
       referrerName:         fd.get("referrerName"),
       referrerRole:         fd.get("referrerRole"),
@@ -23,10 +66,11 @@ export default function ReferralForm() {
       referrerEmail:        fd.get("referrerEmail"),
       referrerPhone:        fd.get("referrerPhone"),
       participantName:      fd.get("participantName"),
-      condition:            fd.get("condition"),
+      condition:            progLabel || "Not sure — please advise",
       location:             fd.get("location"),
       notes:                fd.get("notes"),
     };
+
     try {
       const res = await fetch("/api/refer", {
         method: "POST",
@@ -54,7 +98,8 @@ export default function ReferralForm() {
         </div>
         <h3 className="text-xl font-black" style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}>Referral received</h3>
         <p className="text-sm leading-relaxed" style={{ color: "#444444" }}>
-          Thank you — we will be in touch within 48 hours to follow up. If you need to speak to someone sooner please call us on <a href="tel:+447917799456" className="underline">07917 799456</a>.
+          Thank you — we will be in touch within 48 hours to follow up. If you need to speak to someone sooner please call us on{" "}
+          <a href="tel:+447917799456" className="underline">07917 799456</a>.
         </p>
       </div>
     );
@@ -127,35 +172,59 @@ export default function ReferralForm() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Programme — dynamic from Sanity */}
           <div className="flex flex-col gap-1.5">
             <label htmlFor="condition" className="text-sm font-medium" style={labelStyle}>
-              Programme most suitable for them <span style={{ color: "#F5A623" }}>*</span>
+              Programme most suitable <span style={{ color: "#F5A623" }}>*</span>
             </label>
-            <select id="condition" name="condition" required className={inputClass}
-              style={{ ...inputStyle, appearance: "none", backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 14px center" }}>
+            <select
+              id="condition"
+              name="condition"
+              required
+              className={inputClass}
+              style={selectStyle}
+              value={selectedProg}
+              onChange={(e) => setSelectedProg(e.target.value)}
+            >
               <option value="">Select a programme…</option>
-              <option value="Singing for Lung Health">Singing for Lung Health (lung conditions &amp; breathlessness)</option>
-              <option value="Waveney Skylarks">Waveney Skylarks (Parkinson&apos;s)</option>
-              <option value="Music & Dementia">Music &amp; Dementia</option>
-              <option value="Music for Wellbeing">Music for Wellbeing (general wellbeing)</option>
-              <option value="Open Access">Open Access (neurodivergent adults)</option>
-              <option value="Not sure">Not sure — please advise</option>
+              {programmes.map((p) => (
+                <option key={p._id} value={p.slug}>
+                  {p.title}{p.badgeLabel ? ` (${p.badgeLabel})` : ""}
+                </option>
+              ))}
+              <option value="not-sure">Not sure — please advise</option>
             </select>
           </div>
+
+          {/* Location — filtered by selected programme */}
           <div className="flex flex-col gap-1.5">
             <label htmlFor="location" className="text-sm font-medium" style={labelStyle}>
               Preferred location
             </label>
-            <select id="location" name="location" className={inputClass}
-              style={{ ...inputStyle, appearance: "none", backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")", backgroundRepeat: "no-repeat", backgroundPosition: "right 14px center" }}>
-              <option value="">No preference</option>
-              <option value="Lowestoft — The Seagull Theatre">Lowestoft — The Seagull Theatre</option>
-              <option value="Gorleston — Pavilion Theatre">Gorleston — Pavilion Theatre</option>
-              <option value="Gorleston — Shrublands Community Trust">Gorleston — Shrublands Community Trust</option>
-              <option value="Southwold — Reydon Sports Centre">Southwold/Reydon — Reydon Sports Centre</option>
-              <option value="Halesworth — Community Centre">Halesworth — Community Centre</option>
-              <option value="Online">Online (national)</option>
+            <select
+              id="location"
+              name="location"
+              className={inputClass}
+              style={{
+                ...selectStyle,
+                opacity: locationOptions.length === 0 ? 0.5 : 1,
+              }}
+            >
+              <option value="">
+                {selectedProg && locationOptions.length === 0
+                  ? "No locations found"
+                  : "No preference"}
+              </option>
+              {locationOptions.map((loc) => (
+                <option key={loc} value={loc}>{loc}</option>
+              ))}
+              <option value="Online">Online</option>
             </select>
+            {selectedProg && locationOptions.length > 0 && (
+              <p className="text-xs" style={{ color: "#888888" }}>
+                Showing locations for the selected programme
+              </p>
+            )}
           </div>
         </div>
 

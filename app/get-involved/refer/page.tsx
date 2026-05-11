@@ -1,7 +1,12 @@
 import SectionLabel from "@/components/ui/SectionLabel";
 import ReferralForm from "@/components/refer/ReferralForm";
+import type { ProgrammeOption, SessionOption } from "@/components/refer/ReferralForm";
 import { IconUserCheck, IconClock, IconDoor, IconHeartHandshake } from "@tabler/icons-react";
+import { sanityFetch } from "@/sanity/lib/client";
+import { PROGRAMMES_QUERY, ALL_SESSIONS_QUERY } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Refer Someone — Swell Music CIC",
@@ -64,7 +69,11 @@ const WHO_CAN_REFER = [
   "Anyone who knows someone who would benefit",
 ];
 
-export default function ReferPage() {
+export default async function ReferPage() {
+  const [programmes, sessions] = await Promise.all([
+    sanityFetch<ProgrammeOption[]>({ query: PROGRAMMES_QUERY }),
+    sanityFetch<SessionOption[]>({ query: ALL_SESSIONS_QUERY }),
+  ]);
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
@@ -195,7 +204,10 @@ export default function ReferPage() {
                 Takes less than five minutes. We will respond within 48 hours.
               </p>
             </div>
-            <ReferralForm />
+            <ReferralForm
+              programmes={programmes ?? []}
+              sessions={sessions ?? []}
+            />
           </div>
 
           {/* Sidebar */}
