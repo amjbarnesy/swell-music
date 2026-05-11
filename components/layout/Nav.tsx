@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { IconMenu2, IconX } from "@tabler/icons-react";
+import { DONATE_URL } from "@/lib/donate";
 
 const navLinks = [
   { label: "Our work",   href: "/our-work" },
@@ -45,6 +46,19 @@ export default function Nav() {
               {link.label}
             </Link>
           ))}
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 text-sm font-medium rounded transition-colors"
+            style={{
+              border: "1px solid rgba(255,255,255,0.25)",
+              color: "#cccccc",
+              fontFamily: "var(--font-body)",
+            }}
+          >
+            Donate
+          </a>
           <Link
             href="/get-involved/find-a-session"
             className="px-4 py-2 text-sm font-medium rounded transition-opacity hover:opacity-90"
@@ -94,6 +108,15 @@ export default function Nav() {
           >
             Find a session
           </Link>
+          <a
+            href={DONATE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-3 text-base font-medium rounded text-center"
+            style={{ border: "1px solid rgba(255,255,255,0.25)", color: "#cccccc", fontFamily: "var(--font-body)" }}
+          >
+            Donate
+          </a>
         </div>
       )}
     </header>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IconBrandFacebook, IconMail, IconPhone } from "@tabler/icons-react";
+import { IconBrandFacebook, IconMail, IconPhone, IconHeart } from "@tabler/icons-react";
+import { DONATE_URL } from "@/lib/donate";
 
 const navigate = [
   { label: "Our work",    href: "/our-work" },
@@ -102,6 +103,18 @@ export default function Footer() {
               >
                 <IconPhone size={16} />
                 07917 799456
+              </a>
+            </li>
+            <li className="mt-2">
+              <a
+                href={DONATE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-80"
+                style={{ color: "#F5A623" }}
+              >
+                <IconHeart size={14} />
+                Donate to Swell Music
               </a>
             </li>
             <li className="mt-4 flex flex-col gap-2">
