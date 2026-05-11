@@ -17,7 +17,6 @@ const NAV: NavItem[] = [
     href: "/our-work",
     children: [
       { label: "Our work",      href: "/our-work" },
-      { label: "Find a session", href: "/get-involved/find-a-session" },
       { label: "Refer someone", href: "/get-involved/refer" },
     ],
   },
