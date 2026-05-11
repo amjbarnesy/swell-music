@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Nav from "@/components/layout/Nav";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
+import FontSizeControls from "@/components/layout/FontSizeControls";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -36,6 +37,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <CookieBanner />
+        <FontSizeControls />
         <Analytics />
       </body>
     </html>

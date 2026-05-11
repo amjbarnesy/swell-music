@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 
-const SIZES  = [14, 16, 18, 20]; // px — four steps
-const DEFAULT = 1;                // index of 16px
+const SIZES   = [14, 16, 18, 20];
+const DEFAULT = 1; // 16px
 const KEY     = "swell-font-size";
 
 export default function FontSizeControls() {
   const [idx, setIdx] = useState(DEFAULT);
 
-  // Apply saved preference on mount
   useEffect(() => {
     const saved = localStorage.getItem(KEY);
     if (saved !== null) {
@@ -29,34 +28,51 @@ export default function FontSizeControls() {
     localStorage.setItem(KEY, String(SIZES[next]));
   }
 
-  const btnBase: React.CSSProperties = {
-    fontFamily:  "var(--font-body)",
-    lineHeight:  1,
-    transition:  "color 0.15s, opacity 0.15s",
-    cursor:      "pointer",
-    background:  "none",
-    border:      "none",
-    padding:     "2px 4px",
-  };
-
   return (
-    <div className="flex items-center gap-0.5" aria-label="Text size">
+    <div
+      className="fixed bottom-5 right-5 z-40 flex items-center gap-0 rounded-full shadow-lg"
+      style={{
+        backgroundColor: "#1a1a1a",
+        border: "1px solid rgba(255,255,255,0.12)",
+      }}
+      aria-label="Text size"
+    >
       <button
         onClick={() => change(-1)}
         disabled={idx === 0}
         aria-label="Decrease text size"
-        style={{ ...btnBase, fontSize: "11px", color: idx === 0 ? "#444444" : "#888888" }}
+        className="rounded-l-full px-3 py-2 transition-colors"
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "11px",
+          color: idx === 0 ? "#444444" : "#888888",
+          background: "none",
+          border: "none",
+          cursor: idx === 0 ? "default" : "pointer",
+          lineHeight: 1,
+        }}
         onMouseEnter={(e) => { if (idx > 0) (e.currentTarget as HTMLElement).style.color = "#F5A623"; }}
         onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === 0 ? "#444444" : "#888888"; }}
       >
         A
       </button>
-      <span style={{ color: "#333333", fontSize: "10px" }}>|</span>
+
+      <span style={{ color: "#333333", fontSize: "10px", userSelect: "none" }}>|</span>
+
       <button
         onClick={() => change(1)}
         disabled={idx === SIZES.length - 1}
         aria-label="Increase text size"
-        style={{ ...btnBase, fontSize: "14px", color: idx === SIZES.length - 1 ? "#444444" : "#888888" }}
+        className="rounded-r-full px-3 py-2 transition-colors"
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "15px",
+          color: idx === SIZES.length - 1 ? "#444444" : "#888888",
+          background: "none",
+          border: "none",
+          cursor: idx === SIZES.length - 1 ? "default" : "pointer",
+          lineHeight: 1,
+        }}
         onMouseEnter={(e) => { if (idx < SIZES.length - 1) (e.currentTarget as HTMLElement).style.color = "#F5A623"; }}
         onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = idx === SIZES.length - 1 ? "#444444" : "#888888"; }}
       >
