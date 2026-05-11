@@ -105,6 +105,9 @@ export default function Footer() {
               </a>
             </li>
             <li className="mt-4 flex flex-col gap-2">
+              <Link href="/policies" className="text-xs" style={{ color: "#444444" }}>
+                Policies
+              </Link>
               <Link href="/privacy" className="text-xs" style={{ color: "#444444" }}>
                 Privacy policy
               </Link>
