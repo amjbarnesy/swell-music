@@ -37,6 +37,23 @@ export default defineType({
       description: "One or two sentences shown on the homepage card.",
     }),
     defineField({
+      name: "sessionKey",
+      title: "Session programme key",
+      type: "string",
+      group: "card",
+      description: "Must match the 'Programme' value used on session documents (e.g. 'wellbeing', 'lung-health'). Used to filter locations on the referral form.",
+      options: {
+        list: [
+          { title: "Singing for Lung Health", value: "lung-health" },
+          { title: "Waveney Skylarks (Parkinson's)", value: "parkinsons" },
+          { title: "Music & Dementia", value: "dementia" },
+          { title: "Music for Wellbeing", value: "wellbeing" },
+          { title: "Open Access", value: "open-access" },
+          { title: "Wired Sounds", value: "wired-sounds" },
+        ],
+      },
+    }),
+    defineField({
       name: "locationSummary",
       title: "Location summary",
       type: "string",

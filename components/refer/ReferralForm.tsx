@@ -8,6 +8,7 @@ export type ProgrammeOption = {
   _id: string;
   title: string;
   slug: string;
+  sessionKey?: string;
   badgeLabel?: string;
 };
 
@@ -37,13 +38,14 @@ export default function ReferralForm({ programmes, sessions }: Props) {
   const [status, setStatus]         = useState<Status>("idle");
   const [errorMsg, setErrorMsg]     = useState("");
   const [selectedProg, setSelectedProg] = useState("");
+  const [selectedSessionKey, setSelectedSessionKey] = useState("");
 
   // Unique locations for the selected programme, or all locations if none selected
-  const locationOptions: string[] = selectedProg
+  const locationOptions: string[] = selectedSessionKey
     ? Array.from(
         new Set(
           sessions
-            .filter((s) => s.programme === selectedProg)
+            .filter((s) => s.programme === selectedSessionKey)
             .map((s) => s.location)
             .filter(Boolean)
         )
@@ -184,7 +186,12 @@ export default function ReferralForm({ programmes, sessions }: Props) {
               className={inputClass}
               style={selectStyle}
               value={selectedProg}
-              onChange={(e) => setSelectedProg(e.target.value)}
+              onChange={(e) => {
+                const slug = e.target.value;
+                setSelectedProg(slug);
+                const prog = programmes.find((p) => p.slug === slug);
+                setSelectedSessionKey(prog?.sessionKey ?? slug);
+              }}
             >
               <option value="">Select a programme…</option>
               {programmes.map((p) => (
@@ -211,7 +218,7 @@ export default function ReferralForm({ programmes, sessions }: Props) {
               }}
             >
               <option value="">
-                {selectedProg && locationOptions.length === 0
+                {selectedSessionKey && locationOptions.length === 0
                   ? "No locations found"
                   : "No preference"}
               </option>
@@ -220,7 +227,7 @@ export default function ReferralForm({ programmes, sessions }: Props) {
               ))}
               <option value="Online">Online</option>
             </select>
-            {selectedProg && locationOptions.length > 0 && (
+            {selectedSessionKey && locationOptions.length > 0 && (
               <p className="text-xs" style={{ color: "#888888" }}>
                 Showing locations for the selected programme
               </p>
