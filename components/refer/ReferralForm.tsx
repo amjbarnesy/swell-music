@@ -40,17 +40,26 @@ export default function ReferralForm({ programmes, sessions }: Props) {
   const [selectedProg, setSelectedProg] = useState("");
   const [selectedSessionKey, setSelectedSessionKey] = useState("");
 
+  // Split comma-separated location strings into individual entries, deduplicate
+  function flattenLocations(locs: string[]): string[] {
+    return Array.from(
+      new Set(
+        locs
+          .flatMap((l) => l.split(",").map((s) => s.trim()))
+          .filter(Boolean)
+      )
+    );
+  }
+
   // Unique locations for the selected programme, or all locations if none selected
   const locationOptions: string[] = selectedSessionKey
-    ? Array.from(
-        new Set(
-          sessions
-            .filter((s) => s.programme === selectedSessionKey)
-            .map((s) => s.location)
-            .filter(Boolean)
-        )
+    ? flattenLocations(
+        sessions
+          .filter((s) => s.programme === selectedSessionKey)
+          .map((s) => s.location)
+          .filter(Boolean)
       )
-    : Array.from(new Set(sessions.map((s) => s.location).filter(Boolean)));
+    : flattenLocations(sessions.map((s) => s.location).filter(Boolean));
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -225,7 +234,6 @@ export default function ReferralForm({ programmes, sessions }: Props) {
               {locationOptions.map((loc) => (
                 <option key={loc} value={loc}>{loc}</option>
               ))}
-              <option value="Online">Online</option>
             </select>
             {selectedSessionKey && locationOptions.length > 0 && (
               <p className="text-xs" style={{ color: "#888888" }}>
