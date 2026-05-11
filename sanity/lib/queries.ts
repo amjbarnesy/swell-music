@@ -15,6 +15,18 @@ export const HERO_QUERY = `
   }
 `;
 
+// ─── Homepage image pair ──────────────────────────────────────────────────────
+export const HOMEPAGE_IMAGE_PAIR_QUERY = `
+  *[_type == "homepageImagePair"][0]{
+    "leftUrl":     imageLeft.asset->url,
+    "leftAlt":     imageLeft.alt,
+    "leftCaption": imageLeft.caption,
+    "rightUrl":    imageRight.asset->url,
+    "rightAlt":    imageRight.alt,
+    "rightCaption": imageRight.caption
+  }
+`;
+
 // ─── Funders ──────────────────────────────────────────────────────────────────
 export const FUNDERS_QUERY = `
   *[_type == "funder" && active == true] | order(order asc){
