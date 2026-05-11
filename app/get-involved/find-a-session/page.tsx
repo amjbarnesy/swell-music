@@ -56,7 +56,7 @@ export default async function FindASessionPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           {h.eyebrow && <SectionLabel>{h.eyebrow}</SectionLabel>}
           <HighlightHeading heading={h.heading} highlightWord={h.highlightWord ?? undefined} as="h1"
@@ -138,7 +138,7 @@ export default async function FindASessionPage() {
       </section>
 
       {/* ── Map ──────────────────────────────────────────────────────────── */}
-      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+      <section className="hero-bg py-16 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <SectionLabel>Where you&apos;ll find us</SectionLabel>

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function GetInvolvedPage() {
   return (
     <>
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-16 px-6">
+      <section className="hero-bg py-16 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-3">
           <SectionLabel>Take part</SectionLabel>
           <h1 className="text-4xl sm:text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>

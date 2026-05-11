@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function VolunteerPage() {
   return (
-    <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6 min-h-[60vh]">
+    <section className="hero-bg py-20 px-6 min-h-[60vh]">
       <div className="max-w-7xl mx-auto flex flex-col gap-5">
         <SectionLabel>Give your time</SectionLabel>
         <h1 className="text-4xl sm:text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>

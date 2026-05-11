@@ -93,7 +93,7 @@ export default async function WiredSoundsPage() {
       />
 
       {/* YouTube video */}
-      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+      <section className="hero-bg py-16 px-6">
         <div className="max-w-7xl mx-auto">
           {embedUrl ? (
             <div className="relative rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>

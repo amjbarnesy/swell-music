@@ -35,7 +35,7 @@ export default function PoliciesPage() {
   return (
     <main className="min-h-screen" style={{ backgroundColor: "#ffffff" }}>
       {/* Header */}
-      <section className="px-6 py-14" style={{ backgroundColor: "#1a1a1a" }}>
+      <section className="hero-bg px-6 py-14">
         <div className="max-w-3xl mx-auto">
           <p
             className="text-xs font-semibold tracking-[0.18em] uppercase mb-3"

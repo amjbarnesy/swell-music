@@ -44,7 +44,7 @@ export default async function NewsArticlePage({ params }: Params) {
 
   return (
     <>
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-2xl mx-auto flex flex-col gap-4">
           <SectionLabel>News</SectionLabel>
           <h1 className="text-3xl sm:text-4xl font-black leading-snug" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>{post.title}</h1>
@@ -138,7 +138,7 @@ export default async function NewsArticlePage({ params }: Params) {
 
       {/* Gallery */}
       {post.gallery && post.gallery.length > 0 && (
-        <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <section className="hero-bg py-16 px-6">
           <div className="max-w-2xl mx-auto flex flex-col gap-6">
             <SectionLabel>Photos</SectionLabel>
             <GalleryLightbox images={post.gallery} postTitle={post.title} columns={3} gridAspectRatio="4/3" />

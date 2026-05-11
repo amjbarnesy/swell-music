@@ -47,7 +47,7 @@ export default function HeroServer({ hero }: { hero: HeroData | null }) {
   const d = { ...DEFAULTS, ...hero };
 
   return (
-    <section style={{ backgroundColor: "#1a1a1a" }} className="px-6 pt-16 pb-0">
+    <section className="hero-bg px-6 pt-16 pb-0">
       <div className="max-w-7xl mx-auto py-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left */}
         <div className="flex flex-col gap-6">

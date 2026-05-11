@@ -20,7 +20,7 @@ export default async function SupportUsPage() {
 
   return (
     <>
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           <SectionLabel>Make a difference</SectionLabel>
           <h1 className="text-4xl sm:text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>

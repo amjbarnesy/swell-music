@@ -34,7 +34,7 @@ export default async function ContactPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           <SectionLabel>Get in touch</SectionLabel>
           <h1 className="text-4xl sm:text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>
@@ -125,7 +125,7 @@ export default async function ContactPage() {
       </section>
 
       {/* ── Map ──────────────────────────────────────────────────────────── */}
-      <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+      <section className="hero-bg py-16 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-8">
           <div className="flex flex-col gap-2">
             <SectionLabel>Where you&apos;ll find us</SectionLabel>

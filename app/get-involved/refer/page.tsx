@@ -68,7 +68,7 @@ export default function ReferPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           <SectionLabel>For health &amp; social care professionals</SectionLabel>
           <h1 className="text-4xl sm:text-5xl font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>
@@ -220,7 +220,7 @@ export default function ReferPage() {
               </ul>
             </div>
 
-            <div className="rounded-lg p-5 flex flex-col gap-3" style={{ backgroundColor: "#1a1a1a" }}>
+            <div className="hero-bg rounded-lg p-5 flex flex-col gap-3">
               <h3 className="text-base font-black" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>Prefer to call?</h3>
               <p className="text-sm" style={{ color: "#888888" }}>
                 Happy to talk through whether one of our programmes is right for your patient or client.

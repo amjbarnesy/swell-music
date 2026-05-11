@@ -36,7 +36,7 @@ export default async function NewsPage() {
 
   return (
     <>
-      <section style={{ backgroundColor: "#1a1a1a" }} className="py-20 px-6">
+      <section className="hero-bg py-20 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-5">
           {h.eyebrow && <SectionLabel>{h.eyebrow}</SectionLabel>}
           <HighlightHeading

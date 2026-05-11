@@ -220,7 +220,7 @@ export default async function ProgrammePage({ params }: Params) {
 
       {/* Gallery */}
       {hasGallery && (
-        <section className="py-16 px-6" style={{ backgroundColor: "#1a1a1a" }}>
+        <section className="hero-bg py-16 px-6">
           <div className="max-w-7xl mx-auto flex flex-col gap-8">
             <div className="flex flex-col gap-2">
               <SectionLabel>In the room</SectionLabel>

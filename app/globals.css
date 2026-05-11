@@ -48,3 +48,14 @@ body {
   outline: 2px solid #F5A623;
   outline-offset: 2px;
 }
+
+/* Hero section background — dark with a subtle warm amber radial glow from the right */
+.hero-bg {
+  background: radial-gradient(
+    ellipse at 85% 50%,
+    #3d1c08 0%,
+    #1e0e04 38%,
+    #111111 65%,
+    #0a0a0a 100%
+  );
+}
