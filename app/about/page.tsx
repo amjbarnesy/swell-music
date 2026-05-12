@@ -23,7 +23,7 @@ const FALLBACK = {
 
 const team = [
   {
-    name: "Helen Hayes",
+    name: "Helen Barnes",
     role: "Founder & Director",
     bio: "Founded Swell Music CIC in August 2020 after three years as a community music practitioner in East Suffolk. Studied at Birmingham Conservatoire with a career spanning music, education and the arts. Trained Singing for Lung Health practitioner (accredited by Asthma and Lung UK), Sing to Beat Parkinson's leader, and specialist in dementia awareness and neurodiversity. Leads all community sessions and programmes.",
   },
@@ -92,7 +92,7 @@ export default async function AboutPage() {
               meet in a smile when they are having the toughest day — is why I do this.&rdquo;
             </p>
             <footer className="text-sm font-medium" style={{ color: "#412402" }}>
-              — Helen Hayes, Founder &amp; Director
+              — Helen Barnes, Founder &amp; Director
             </footer>
           </blockquote>
         </div>
@@ -156,7 +156,7 @@ export default async function AboutPage() {
               className="text-3xl font-black"
               style={{ fontFamily: "var(--font-display)", color: "#1a1a1a" }}
             >
-              Helen Hayes
+              Helen Barnes
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -174,7 +174,7 @@ export default async function AboutPage() {
               </p>
               <QuoteBlock
                 quote="Growing up in Leicestershire, I benefitted greatly from the opportunities offered by the county music service and inspirational teachers. Those early experiences gave me an insight into the life-changing effects of making music with others."
-                attribution="Helen Hayes"
+                attribution="Helen Barnes"
               />
             </div>
             <div className="flex flex-col gap-4">
