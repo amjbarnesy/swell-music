@@ -90,6 +90,7 @@ export default async function WiredSoundsPage() {
         accentText="#712B13"
         badgeLabel="Neurodivergent"
         badgeColour="coral"
+        logoSrc="/logos/wired-sounds.svg"
       />
 
       {/* YouTube video */}
