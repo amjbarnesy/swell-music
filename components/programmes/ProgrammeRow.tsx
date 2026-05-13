@@ -101,13 +101,11 @@ export function ProgrammeRow({ programme, index, total }: ProgrammeRowProps) {
 
         {programme.onHold && (
           <div
-            className="mt-5 flex items-start gap-2.5 rounded-sm px-4 py-3 text-sm"
-            style={{ backgroundColor: "#FEF3D7", color: "#854F0B", border: "1px solid #F5A623" }}
+            className="mt-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs"
+            style={{ backgroundColor: "#FEF3D7", color: "#854F0B", border: "1px solid rgba(245,166,35,0.4)" }}
           >
-            <span className="shrink-0 mt-0.5">⏸</span>
-            <span>
-              {programme.onHoldMessage || "This programme is not currently running — we hope to restart soon."}
-            </span>
+            <span>⏸</span>
+            <span>{programme.onHoldMessage || "Not currently running — we hope to restart soon"}</span>
           </div>
         )}
 
