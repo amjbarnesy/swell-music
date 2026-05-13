@@ -59,7 +59,9 @@ function toRow(p: ProgrammeData): Programme {
     colorSoft: colours.colorSoft,
     colorDeep: colours.colorDeep,
     iconKey:   ICON_KEY_MAP[p.iconName ?? "music"] ?? "note",
-    href:      `/our-work/${slug}`,
+    href:           `/our-work/${slug}`,
+    onHold:         p.onHold ?? false,
+    onHoldMessage:  p.onHoldMessage,
     ...(p.featuredImageUrl
       ? { image: { src: p.featuredImageUrl, alt: p.featuredImageAlt ?? p.title } }
       : {}),

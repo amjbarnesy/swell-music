@@ -48,6 +48,8 @@ export interface ProgrammeData {
   locationSummary?: string;
   featuredImageUrl?: string;
   featuredImageAlt?: string;
+  onHold?: boolean;
+  onHoldMessage?: string;
 }
 
 // ─── Fallback data (no Sanity yet) ────────────────────────────────────────────

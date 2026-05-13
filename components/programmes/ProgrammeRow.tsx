@@ -99,6 +99,18 @@ export function ProgrammeRow({ programme, index, total }: ProgrammeRowProps) {
           <ProgrammeImage programme={programme} tone={tone} aspect="aspect-[16/9] md:aspect-[16/7]" />
         </div>
 
+        {programme.onHold && (
+          <div
+            className="mt-5 flex items-start gap-2.5 rounded-sm px-4 py-3 text-sm"
+            style={{ backgroundColor: "#FEF3D7", color: "#854F0B", border: "1px solid #F5A623" }}
+          >
+            <span className="shrink-0 mt-0.5">⏸</span>
+            <span>
+              {programme.onHoldMessage || "This programme is not currently running — we hope to restart soon."}
+            </span>
+          </div>
+        )}
+
         <div className="mt-6 flex flex-col gap-3 md:mt-7 md:flex-row md:items-center md:gap-6">
           <Link
             href={href}

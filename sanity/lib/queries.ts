@@ -42,7 +42,8 @@ export const PROGRAMMES_QUERY = `
     _id, title, "slug": slug.current,
     shortDescription, badgeLabel, theme, iconName, locationSummary,
     "featuredImageUrl": featuredImage.asset->url,
-    "featuredImageAlt": featuredImage.alt
+    "featuredImageAlt": featuredImage.alt,
+    onHold, onHoldMessage
   }
 `;
 
@@ -55,6 +56,7 @@ export const PROGRAMME_PAGE_QUERY = `
     _id, title, "slug": slug.current,
     shortDescription, badgeLabel, theme, iconName, accreditation,
     pageTitle, pageDescription,
+    onHold, onHoldMessage,
     features[]{ title, description },
     whoFor,
     evidenceHeading, evidenceBody,

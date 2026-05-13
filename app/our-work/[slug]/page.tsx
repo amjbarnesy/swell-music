@@ -47,6 +47,8 @@ interface ProgrammeDoc {
   badgeLabel?: string;
   theme?: string;
   iconName?: string;
+  onHold?: boolean;
+  onHoldMessage?: string;
   accreditation?: string;
   pageTitle?: string;
   pageDescription?: string;
@@ -151,6 +153,18 @@ export default async function ProgrammePage({ params }: Params) {
         badgeColour={colours.badge as "amber" | "teal" | "purple" | "coral"}
         accreditation={prog.accreditation}
       />
+
+      {/* On-hold notice */}
+      {prog.onHold && (
+        <section className="px-6 py-6" style={{ backgroundColor: "#FEF3D7" }}>
+          <div className="max-w-7xl mx-auto flex items-start gap-3">
+            <span className="text-xl shrink-0">⏸</span>
+            <p className="text-sm leading-relaxed" style={{ color: "#854F0B", fontFamily: "var(--font-body)" }}>
+              {prog.onHoldMessage || "This programme is not currently running — we hope to restart soon."}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Feature cards */}
       {hasFeatures && (

@@ -38,4 +38,8 @@ export type Programme = {
   };
   /** Where "Find a session" links to (defaults to /find-a-session?p={id}) */
   href?: string;
+  /** Programme is temporarily not running */
+  onHold?: boolean;
+  /** Custom message shown when onHold is true */
+  onHoldMessage?: string;
 };

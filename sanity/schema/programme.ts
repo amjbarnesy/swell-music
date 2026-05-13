@@ -209,6 +209,23 @@ export default defineType({
       description: "Up to 6 photos displayed in a 3-column grid.",
     }),
 
+    // ── Status ─────────────────────────────────────────────────────────────────
+    defineField({
+      name: "onHold",
+      title: "Currently on hold",
+      type: "boolean",
+      group: "meta",
+      initialValue: false,
+      description: "Turn on to show a notice that this programme is temporarily not running. The programme stays visible on the site.",
+    }),
+    defineField({
+      name: "onHoldMessage",
+      title: "On hold message",
+      type: "string",
+      group: "meta",
+      description: "Shown on the programme card and page when 'Currently on hold' is on. e.g. 'Currently seeking funding to restart — we hope to be back soon.'",
+    }),
+
     // ── Settings ───────────────────────────────────────────────────────────────
     defineField({
       name: "order",
