@@ -36,17 +36,24 @@ const ICON_KEY_MAP: Record<string, ProgrammeIconKey> = {
 // ─── Custom SVG icons keyed by programme slug ─────────────────────────────────
 // Add an entry here whenever a programme gets a bespoke Illustrator icon.
 const ICON_SRC_MAP: Record<string, string> = {
-  // Lung health — matches Sanity slug
+  // Lung health
   "lung-health":              "/icons/lung-health.svg",
   "singing-for-lung-health":  "/icons/lung-health.svg",
-  // Music for Wellbeing — add whichever slug Sanity uses
+  // Music for Wellbeing
   "music-for-well-being":     "/icons/wellbeing.svg",
   "wellbeing":                "/icons/wellbeing.svg",
   "dementia":                 "/icons/wellbeing.svg",
   // Wired Sounds Weekly
   "wired-sounds":             "/icons/wired-sounds.svg",
   "wired-sounds-weekly":      "/icons/wired-sounds.svg",
+  // Sing to Beat Parkinson's
+  "parkinsons":               "/icons/parkinsons.svg",
+  "sing-to-beat-parkinsons":  "/icons/parkinsons.svg",
+  "sing-to-beat-parkinson-s": "/icons/parkinsons.svg",
 };
+
+// Any programme slug not in the map above falls back to this icon
+const FALLBACK_ICON_SRC = "/icons/wired-sounds.svg";
 
 // ─── Location strings keyed by programme slug ─────────────────────────────────
 // Update these when session schedules change.
@@ -74,7 +81,7 @@ function toRow(p: ProgrammeData): Programme {
     colorSoft: colours.colorSoft,
     colorDeep: colours.colorDeep,
     iconKey:   ICON_KEY_MAP[p.iconName ?? "music"] ?? "note",
-    iconSrc:   ICON_SRC_MAP[slug],
+    iconSrc:   ICON_SRC_MAP[slug] ?? FALLBACK_ICON_SRC,
     href:           `/our-work/${slug}`,
     onHold:         p.onHold ?? false,
     onHoldMessage:  p.onHoldMessage,
