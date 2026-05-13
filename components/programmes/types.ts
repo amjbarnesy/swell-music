@@ -31,6 +31,8 @@ export type Programme = {
   colorDeep: string;
   /** Which icon to render — see {@link iconMap} */
   iconKey: ProgrammeIconKey;
+  /** Optional path to a custom SVG in /public — overrides the iconKey component */
+  iconSrc?: string;
   /** Optional photo. Falls back to a striped placeholder if omitted. */
   image?: {
     src: string;

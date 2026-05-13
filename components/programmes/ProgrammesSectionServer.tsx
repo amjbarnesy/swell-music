@@ -33,6 +33,21 @@ const ICON_KEY_MAP: Record<string, ProgrammeIconKey> = {
   star:       "voice",  // fallback
 };
 
+// ─── Custom SVG icons keyed by programme slug ─────────────────────────────────
+// Add an entry here whenever a programme gets a bespoke Illustrator icon.
+const ICON_SRC_MAP: Record<string, string> = {
+  // Lung health — matches Sanity slug
+  "lung-health":              "/icons/lung-health.svg",
+  "singing-for-lung-health":  "/icons/lung-health.svg",
+  // Music for Wellbeing — add whichever slug Sanity uses
+  "music-for-well-being":     "/icons/wellbeing.svg",
+  "wellbeing":                "/icons/wellbeing.svg",
+  "dementia":                 "/icons/wellbeing.svg",
+  // Wired Sounds Weekly
+  "wired-sounds":             "/icons/wired-sounds.svg",
+  "wired-sounds-weekly":      "/icons/wired-sounds.svg",
+};
+
 // ─── Location strings keyed by programme slug ─────────────────────────────────
 // Update these when session schedules change.
 const LOCATION_MAP: Record<string, string> = {
@@ -59,6 +74,7 @@ function toRow(p: ProgrammeData): Programme {
     colorSoft: colours.colorSoft,
     colorDeep: colours.colorDeep,
     iconKey:   ICON_KEY_MAP[p.iconName ?? "music"] ?? "note",
+    iconSrc:   ICON_SRC_MAP[slug],
     href:           `/our-work/${slug}`,
     onHold:         p.onHold ?? false,
     onHoldMessage:  p.onHoldMessage,

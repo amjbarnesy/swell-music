@@ -63,11 +63,19 @@ export function ProgrammeRow({ programme, index, total }: ProgrammeRowProps) {
           }}
           aria-hidden
         >
-          <Icon
-            size={44}
-            weight={1.8}
-            className="md:[&]:h-[58px] md:[&]:w-[58px] lg:[&]:h-[72px] lg:[&]:w-[72px]"
-          />
+          {programme.iconSrc ? (
+            <img
+              src={programme.iconSrc}
+              alt=""
+              className="h-[44px] w-[44px] object-contain md:h-[58px] md:w-[58px] lg:h-[72px] lg:w-[72px]"
+            />
+          ) : (
+            <Icon
+              size={44}
+              weight={1.8}
+              className="md:[&]:h-[58px] md:[&]:w-[58px] lg:[&]:h-[72px] lg:[&]:w-[72px]"
+            />
+          )}
         </div>
       </div>
 
