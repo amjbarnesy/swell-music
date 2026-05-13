@@ -18,6 +18,13 @@ import type { Metadata } from "next";
 
 export const revalidate = 60;
 
+// ─── Per-programme hero logos ─────────────────────────────────────────────────
+// Add an entry here whenever a programme has its own branded logo.
+const PROGRAMME_LOGOS: Record<string, string> = {
+  "wired-sounds":        "/logos/wired-sounds.svg",
+  "wired-sounds-weekly": "/logos/wired-sounds.svg",
+};
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 type Theme = "amber" | "teal" | "purple" | "coral" | "blue" | "green";
 type PBadgeColour = "amber" | "teal" | "purple" | "coral" | "default";
@@ -152,6 +159,7 @@ export default async function ProgrammePage({ params }: Params) {
         badgeLabel={prog.badgeLabel ?? ""}
         badgeColour={colours.badge as "amber" | "teal" | "purple" | "coral"}
         accreditation={prog.accreditation}
+        logoSrc={PROGRAMME_LOGOS[slug]}
       />
 
       {/* On-hold notice */}
