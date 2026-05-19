@@ -45,33 +45,34 @@ export default async function NewsArticlePage({ params }: Params) {
   return (
     <>
       <section className="hero-bg py-20 px-6">
-        <div className="max-w-2xl mx-auto flex flex-col gap-4">
-          <SectionLabel>News</SectionLabel>
-          <h1 className="text-3xl sm:text-4xl font-black leading-snug" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>{post.title}</h1>
-          <p className="text-sm" style={{ color: "#888888" }}>
-            {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : ""}
-            {post.author ? ` · ${post.author}` : ""}
-          </p>
-          {post.categories && post.categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-1">
-              {post.categories.map((cat) => (
-                <span key={cat} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: "rgba(245,166,35,0.15)", color: "#F5A623" }}>
-                  {cat}
-                </span>
-              ))}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="flex flex-col gap-4">
+            <SectionLabel>News</SectionLabel>
+            <h1 className="text-3xl sm:text-4xl font-black leading-snug" style={{ fontFamily: "var(--font-display)", color: "#ffffff" }}>{post.title}</h1>
+            <p className="text-sm" style={{ color: "#888888" }}>
+              {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : ""}
+              {post.author ? ` · ${post.author}` : ""}
+            </p>
+            {post.categories && post.categories.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-1">
+                {post.categories.map((cat) => (
+                  <span key={cat} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ backgroundColor: "rgba(245,166,35,0.15)", color: "#F5A623" }}>
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          {post.coverImage && (
+            <div className="relative w-full rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+              <Image src={post.coverImage} alt={post.coverImageAlt ?? post.title} fill className="object-cover" />
             </div>
           )}
         </div>
       </section>
 
-      {post.coverImage && (
-        <div className="relative w-full max-w-2xl mx-auto px-6 mt-10 mb-2" style={{ aspectRatio: "16/9" }}>
-          <Image src={post.coverImage} alt={post.coverImageAlt ?? post.title} fill className="object-cover rounded-lg" />
-        </div>
-      )}
-
       <section className="py-12 px-6">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           {post.body && (
             <PortableText
               value={post.body as Parameters<typeof PortableText>[0]["value"]}
@@ -139,7 +140,7 @@ export default async function NewsArticlePage({ params }: Params) {
       {/* Gallery */}
       {post.gallery && post.gallery.length > 0 && (
         <section className="hero-bg py-16 px-6">
-          <div className="max-w-2xl mx-auto flex flex-col gap-6">
+          <div className="max-w-7xl mx-auto flex flex-col gap-6">
             <SectionLabel>Photos</SectionLabel>
             <GalleryLightbox images={post.gallery} postTitle={post.title} columns={3} gridAspectRatio="4/3" />
           </div>
